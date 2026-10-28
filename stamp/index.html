@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inside a stamp mill | Spartan Gold Engineering</title>
+<link rel="stylesheet" href="../shared/style.css">
+</head>
+<body>
+<div class="wrap">
+  <div id="view">
+    <div id="vig"></div>
+    <div id="labels"></div>
+    <div class="ov" id="tl" title="Click to collapse or expand">
+      <div class="k">Comminution | Stamp mill</div>
+      <h1>Inside a <span>stamp mill</span></h1>
+      <p>Five heavy stamps are lifted by cams and dropped on the ore. Drag to orbit, hover or tap any part. Choose the 1450 or 1750 model.</p>
+      <div class="st3" id="ovc"></div>
+    </div>
+    <div class="ov" id="tr">
+      <label>Show labels <input id="lbl" type="checkbox" checked></label>
+      <label>Exploded view <input id="xp" type="checkbox"></label>
+      <label>Cutaway view <input id="xray" type="checkbox"></label>
+      <label>Studio effects <input id="fx" type="checkbox" checked></label>
+      <label>Cinematic camera <input id="cam" type="checkbox" checked></label>
+      <label>Machine speed <input id="flow" type="range" min="40" max="160" value="100"></label>
+    </div>
+    <div id="tip"></div>
+    <div id="sub" aria-live="polite"></div>
+    <div id="hint">Drag to orbit · pinch or scroll to zoom · hover or tap parts</div>
+    <a id="vg" href="mailto:spartangoldzw@gmail.com" title="Spartan Gold Engineering" aria-label="Spartan Gold Engineering"><img alt="Spartan Gold" width="52" height="52" src="../shared/logo.svg"></a>
+    <div id="load" style="visibility:hidden"></div><div class="splash" id="intro"><div class="lg"><img alt="Spartan Gold" width="190" height="190"><i class="ring"></i><i class="star"></i></div></div>
+  </div>
+
+  <div class="chips" id="chips"></div>
+  <div class="cap"><h2 id="ct"></h2><p id="cp"></p>
+  </div>
+
+  <div class="ctl">
+    <button id="play">Pause</button>
+    <input id="scrub" type="range" min="0" max="60" step="0.01" value="0">
+    <label>Speed <select id="spd"><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option></select></label>
+    <label><input id="voice" type="checkbox" checked> Narration</label>
+    <select id="voicesel" title="Narrator voice" style="max-width:190px"></select>
+  </div>
+
+  <div class="hud" id="hud">
+    <div class="card"><small>Stage</small><strong id="h_st" style="font-size:15px">-</strong></div>
+  </div>
+  <canvas id="sp"></canvas>
+  <p class="note">Illustrative teaching model of a five-stamp battery, not a drawing of a specific machine. The 1450 and 1750 models are assumed here to be stamp weights in pounds; ask Spartan Gold Engineering to confirm. Speeds are slowed and ore pieces are shown larger than scale so the action is visible. Drop rate, power and throughput are typical values and differ by model.</p>
+  <footer class="contact"><b>Spartan Gold Engineering</b> &middot; Mineral processing equipment and plants<br><span>55 Close Malborough Drive, Harare, Zimbabwe</span> &middot; <a href="tel:+263716323636">+263 71 632 3636</a> &middot; <a href="tel:+263774389788">+263 77 438 9788</a> &middot; <a href="mailto:spartangoldzw@gmail.com">spartangoldzw@gmail.com</a> &middot; <a href="https://spartan-gold-engineering.business.site/" target="_blank" rel="noopener">Website</a> &middot; <a href="https://www.facebook.com/spartangoldzw/" target="_blank" rel="noopener">Facebook</a></footer>
+</div>
+<script src="../shared/splash.js"></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/"}}</script>
+<script type="module" src="../shared/boot.js"></script>
+</body>
+</html>

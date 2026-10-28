@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spartan Gold Engineering | 3D Equipment Guide</title>
+<style>
+:root{--bg:#071748;--side:#fff;--line:#dbe4f5;--fg:#0b1f67;--mut:#68738a;--acc:#1557bd;--accbg:#edf3fc}
+*{box-sizing:border-box}html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+#app{display:flex;height:100%}
+nav{width:244px;flex:none;background:var(--side);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:6px;padding:16px 12px;overflow-y:auto}
+.brand{display:flex;align-items:center;gap:12px;padding:6px 6px 14px;border-bottom:1px solid var(--line);margin-bottom:6px;text-decoration:none;color:var(--fg)}
+.brand img{width:64px;height:64px;border-radius:12px;flex:none;object-fit:cover}
+.brand b{display:block;font-size:15px;letter-spacing:.06em;color:var(--fg)}.brand small{display:block;color:var(--mut);font-size:11.5px;line-height:1.25}
+.lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);padding:10px 8px 4px}
+.tab{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:transparent;color:var(--fg);border:1px solid transparent;border-radius:12px;padding:10px 12px;cursor:pointer;font:inherit}
+.tab svg{width:22px;height:22px;flex:none;fill:none;stroke:var(--mut);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab span{display:flex;flex-direction:column;min-width:0}.tab b{font-size:15px;font-weight:600}.tab small{color:var(--mut);font-size:12px}
+.tab:hover{background:#f3f7fd}
+.tab[aria-selected=true]{background:var(--accbg);border-color:#9fc0f0;box-shadow:inset 3px 0 0 var(--acc)}.tab[aria-selected=true] svg{stroke:var(--acc)}
+.tab:focus-visible,.site:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.sp{flex:1}.ct{border-top:1px solid var(--line);padding:12px 8px 4px;font-size:12px;color:var(--mut);line-height:1.6}
+.ct a{color:#1557bd;text-decoration:none;display:block}.ct a:hover{text-decoration:underline}
+main{flex:1;min-width:0;position:relative}
+iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--bg)}
+#snd{position:fixed;right:16px;bottom:16px;z-index:9;display:flex;align-items:center;gap:8px;background:#fff;color:#0b1f67;border:1px solid #9fc0f0;border-radius:999px;padding:9px 16px 9px 12px;font:600 13px system-ui,sans-serif;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.35)}#snd:hover{background:#edf3fc}#snd svg{width:18px;height:18px;fill:none;stroke:#1557bd;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:760px){#app{flex-direction:column}nav{width:100%;flex-direction:row;align-items:center;overflow-x:auto;overflow-y:hidden;border-right:0;border-bottom:1px solid var(--line);padding:8px max(10px,env(safe-area-inset-left,0px));gap:6px}
+.brand{border:0;margin:0;padding:0}.brand div,.lbl,.sp,.ct,.tab small{display:none}.brand img{width:40px;height:40px}.tab{width:auto;flex:none;padding:8px 12px}.tab b{font-size:13px;white-space:nowrap}.tab svg{width:18px;height:18px}}
+</style></head><body>
+<div id="app">
+<nav role="tablist" aria-label="Spartan Gold equipment">
+<a class="brand" href="mailto:spartangoldzw@gmail.com" aria-label="Spartan Gold Engineering"><img alt="" src="https://www.spartangold.africa/assets/logo.jpeg" onerror="this.onerror=null;this.src='shared/logo.svg'"><div><b>SPARTAN GOLD</b><small>Mineral processing equipment and plants</small></div></a>
+<div class="lbl">Comminution</div>
+<button class="tab" role="tab" data-id="jaw" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M6 20V9l6-4 6 4v11M9 20v-5h6v5"/></svg><span><b>Jaw crusher</b><small>Primary crushing</small></span></button>
+<button class="tab" role="tab" data-id="hammer" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0-6 0M12 3v6M12 15v6M3 12h6M15 12h6"/></svg><span><b>Hammer mill</b><small>Impact grinding</small></span></button>
+<button class="tab" role="tab" data-id="round" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0-18 0M7 12h10M12 12v-5"/></svg><span><b>Round mill</b><small>Wet pan grinding</small></span></button>
+<button class="tab" role="tab" data-id="stamp" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3v12M16 3v12M5 15h6M13 15h6M4 21h16"/></svg><span><b>Stamp mill</b><small>Models 1450 and 1750</small></span></button>
+<button class="tab" role="tab" data-id="ball" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h16v6H4zM8 12h.01M12 11h.01M15 13h.01M2 12h2M20 12h2"/></svg><span><b>Ball mill</b><small>Tumbling grinding</small></span></button>
+<div class="lbl">Processing plants</div>
+<button class="tab" role="tab" data-id="vat" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14v13H5zM5 10h14M9 14h.01M13 16h.01"/></svg><span><b>Vat leach tanks</b><small>Concrete vats</small></span></button>
+<button class="tab" role="tab" data-id="cip" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M7 20V8h4v12M13 20V4h4v16"/></svg><span><b>CIP / CIL plant</b><small>20 to 500 tpd</small></span></button>
+<button class="tab" role="tab" data-id="elution" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c3 4 5 6.5 5 9a5 5 0 0 1-10 0c0-2.500 2-5 5-9z"/></svg><span><b>Elution plant</b><small>Gold stripping</small></span></button>
+<button class="tab" role="tab" data-id="smelt" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20h14M7 20v-6h10v6M9 14c0-3 3-3 3-6 2 2 3 3 3 6"/></svg><span><b>Smelting plant</b><small>Furnace and pouring</small></span></button>
+<div class="sp"></div>
+<div class="ct">55 Close Malborough Drive, Harare<a href="tel:+263716323636">+263 71 632 3636</a><a href="tel:+263774389788">+263 77 438 9788</a><a href="mailto:spartangoldzw@gmail.com">spartangoldzw@gmail.com</a><a href="https://spartan-gold-engineering.business.site/" target="_blank" rel="noopener">Website</a><a href="https://www.facebook.com/spartangoldzw/" target="_blank" rel="noopener">Facebook</a></div>
+</nav>
+<main id="stage"></main>
+</div>
+<button id="snd" type="button" aria-pressed="false" title="Background music"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.500a9 9 0 0 1 0 13"/></svg><span>Music on</span></button>
+<audio id="bgm" src="shared/bgm.mp3" loop preload="auto"></audio>
+<script>
+var U={jaw:'jaw/',hammer:'hammer/',round:'round/',stamp:'stamp/',ball:'ball/',vat:'vat/',cip:'cip/',elution:'elution/',smelt:'smelt/'},cur=null,fr=null;
+function show(id){
+ if(!U[id])id='jaw';if(cur===id)return;cur=id;
+ document.querySelectorAll('.tab').forEach(function(t){t.setAttribute('aria-selected',t.dataset.id===id)});
+ if(fr)fr.remove();
+ fr=document.createElement('iframe');fr.title=id;fr.allow='fullscreen; autoplay';fr.setAttribute('allowfullscreen','');fr.src=U[id];
+ document.getElementById('stage').appendChild(fr);
+ try{history.replaceState(null,'','#'+id)}catch(e){}
+}
+document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){show(t.dataset.id)})});
+show((location.hash||'').slice(1)||'jaw');
+
+(function(){var a=document.getElementById('bgm'),b=document.getElementById('snd'),l=b.querySelector('span'),muted=false;
+try{muted=localStorage.getItem('sgMuted')==='1'}catch(e){}
+a.volume=.4;
+function ui(){var on=!a.paused&&!muted;l.textContent=on?'Music on':(muted?'Music off':'Play music');b.setAttribute('aria-pressed',on)}
+function go(){if(muted)return;a.muted=false;var p=a.play();if(p&&p.catch)p.catch(function(){});setTimeout(ui,150)}
+b.addEventListener('click',function(e){e.stopPropagation();if(!a.paused&&!muted){muted=true;a.pause()}else{muted=false;a.play().catch(function(){})}try{localStorage.setItem('sgMuted',muted?'1':'0')}catch(x){}setTimeout(ui,100)});
+['pointerdown','keydown','touchstart'].forEach(function(ev){window.addEventListener(ev,function f(){if(!a.paused||muted)return;go()},{passive:true})});
+a.addEventListener('play',ui);a.addEventListener('pause',ui);go();ui();
+})();
+</script></body></html>
