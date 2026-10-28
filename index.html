@@ -20,13 +20,15 @@ nav{width:244px;flex:none;background:var(--side);border-right:1px solid var(--li
 .ct a{color:#1557bd;text-decoration:none;display:block}.ct a:hover{text-decoration:underline}
 main{flex:1;min-width:0;position:relative}
 iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--bg)}
+.lg{display:flex;align-items:center;gap:8px;margin:2px 6px 4px;flex:none}.lg svg{width:18px;height:18px;fill:none;stroke:var(--mut);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.lg select{flex:1;font:600 13px system-ui,sans-serif;color:var(--fg);background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 8px}
 #snd{position:fixed;right:16px;bottom:16px;z-index:9;display:flex;align-items:center;gap:8px;background:#fff;color:#0b1f67;border:1px solid #9fc0f0;border-radius:999px;padding:9px 16px 9px 12px;font:600 13px system-ui,sans-serif;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.35)}#snd:hover{background:#edf3fc}#snd svg{width:18px;height:18px;fill:none;stroke:#1557bd;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 @media(max-width:760px){#app{flex-direction:column}nav{width:100%;flex-direction:row;align-items:center;overflow-x:auto;overflow-y:hidden;border-right:0;border-bottom:1px solid var(--line);padding:8px max(10px,env(safe-area-inset-left,0px));gap:6px}
-.brand{border:0;margin:0;padding:0}.brand div,.lbl,.sp,.ct,.tab small{display:none}.brand img{width:40px;height:40px}.tab{width:auto;flex:none;padding:8px 12px}.tab b{font-size:13px;white-space:nowrap}.tab svg{width:18px;height:18px}}
+.brand{border:0;margin:0;padding:0}.brand div,.lbl,.sp,.ct,.tab small{display:none}.lg{margin:0}.lg svg{display:none}.brand img{width:40px;height:40px}.tab{width:auto;flex:none;padding:8px 12px}.tab b{font-size:13px;white-space:nowrap}.tab svg{width:18px;height:18px}}
 </style></head><body>
 <div id="app">
 <nav role="tablist" aria-label="Spartan Gold equipment">
 <a class="brand" href="mailto:spartangoldzw@gmail.com" aria-label="Spartan Gold Engineering"><img alt="" src="https://www.spartangold.africa/assets/logo.jpeg" onerror="this.onerror=null;this.src='shared/logo.svg'"><div><b>SPARTAN GOLD</b><small>Mineral processing equipment and plants</small></div></a>
+<label class="lg" for="lang"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0-18 0M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg><select id="lang" aria-label="Language"><option value="en">English</option><option value="zh">中文</option><option value="fr">Français</option><option value="pt">Português</option></select></label>
 <div class="lbl">Comminution</div>
 <button class="tab" role="tab" data-id="jaw" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M6 20V9l6-4 6 4v11M9 20v-5h6v5"/></svg><span><b>Jaw crusher</b><small>Primary crushing</small></span></button>
 <button class="tab" role="tab" data-id="hammer" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0-6 0M12 3v6M12 15v6M3 12h6M15 12h6"/></svg><span><b>Hammer mill</b><small>Impact grinding</small></span></button>
@@ -44,11 +46,11 @@ iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(
 <main id="stage"></main>
 </div>
 <button id="snd" type="button" aria-pressed="false" title="Background music"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.500a9 9 0 0 1 0 13"/></svg><span>Music on</span></button>
-<audio id="bgm" src="shared/bgm.mp3" loop preload="auto"></audio>
+<audio id="bgm" src="https://cdn.jsdelivr.net/gh/360Zimbabwe/spartan-gold-3d@a886cd127f5bedbc9da45758f43d739e29b7ac81/shared/bgm.mp3" loop preload="auto"></audio>
 <script>
 var U={jaw:'jaw/',hammer:'hammer/',round:'round/',stamp:'stamp/',ball:'ball/',vat:'vat/',cip:'cip/',elution:'elution/',smelt:'smelt/'},cur=null,fr=null;
 function show(id){
- if(!U[id])id='jaw';if(cur===id)return;cur=id;
+ if(!U[id])id='jaw';if(cur===id&&fr)return;cur=id;
  document.querySelectorAll('.tab').forEach(function(t){t.setAttribute('aria-selected',t.dataset.id===id)});
  if(fr)fr.remove();
  fr=document.createElement('iframe');fr.title=id;fr.allow='fullscreen; autoplay';fr.setAttribute('allowfullscreen','');fr.src=U[id];
@@ -61,10 +63,22 @@ show((location.hash||'').slice(1)||'jaw');
 (function(){var a=document.getElementById('bgm'),b=document.getElementById('snd'),l=b.querySelector('span'),muted=false;
 try{muted=localStorage.getItem('sgMuted')==='1'}catch(e){}
 a.volume=.4;
-function ui(){var on=!a.paused&&!muted;l.textContent=on?'Music on':(muted?'Music off':'Play music');b.setAttribute('aria-pressed',on)}
+function ui(){var on=!a.paused&&!muted;var T=window.SGT||{};l.textContent=on?(T.on||'Music on'):(muted?(T.off||'Music off'):(T.play||'Play music'));b.setAttribute('aria-pressed',on)}
 function go(){if(muted)return;a.muted=false;var p=a.play();if(p&&p.catch)p.catch(function(){});setTimeout(ui,150)}
 b.addEventListener('click',function(e){e.stopPropagation();if(!a.paused&&!muted){muted=true;a.pause()}else{muted=false;a.play().catch(function(){})}try{localStorage.setItem('sgMuted',muted?'1':'0')}catch(x){}setTimeout(ui,100)});
 ['pointerdown','keydown','touchstart'].forEach(function(ev){window.addEventListener(ev,function f(){if(!a.paused||muted)return;go()},{passive:true})});
 a.addEventListener('play',ui);a.addEventListener('pause',ui);go();ui();
 })();
-</script></body></html>
+</script><script type="module">
+import {LANGS,getLang,setLang,loadDict,makeMap,translateDOM} from './shared/i18n.js';
+var sel=document.getElementById('lang'),lang=getLang();sel.value=lang;
+var EX={zh:{'Music off':'音乐关','Play music':'播放音乐'},fr:{'Music off':'Musique coupée','Play music':'Lire la musique'},pt:{'Music off':'Música desligada','Play music':'Tocar música'}};
+sel.addEventListener('change',function(){setLang(sel.value);location.reload()});
+if(lang!=='en'){loadDict(lang).then(function(d){var m=makeMap(d,EX[lang]);document.documentElement.lang=lang;
+ window.SGT={on:m.get('Music on'),off:EX[lang]['Music off'],play:EX[lang]['Play music']};
+ translateDOM(document.body,m,d);var t=m.get(document.title);if(t)document.title=t;
+ var b=document.getElementById('snd');b.title=m.get('Background music')||b.title;
+ var l=b.querySelector('span');l.textContent=window.SGT.on;
+}).catch(function(e){console.warn('language',e)})}
+</script>
+</body></html>
