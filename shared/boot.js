@@ -1,9 +1,9 @@
-(function(){var L='https://www.spartangold.africa/assets/logo.jpeg',i=document.querySelector('#vg img');if(i){i.onerror=function(){i.onerror=null;i.src='../shared/logo.svg'};i.src=L}})();
+(function(){var L='https://mukutemet.co.zw/wp-content/uploads/2026/03/MMES.png',i=document.querySelector('#vg img');if(i){i.onerror=function(){i.onerror=null;i.src='../shared/logo.svg'};i.src=L}})();
 (async()=>{var step='start';var I=null,lang='en',dict=null;try{
 step='webgl';var gl=document.createElement('canvas').getContext('webgl2')||document.createElement('canvas').getContext('webgl');if(!gl)throw new Error('WebGL is not available in this browser (graphics acceleration off or blocked)');
 step='language';try{I=await import('./i18n.js');lang=I.getLang();if(lang!=='en')dict=await I.loadDict(lang)}catch(e){console.warn('language',e);dict=null;lang='en'}
 step='engine files';const N=11,ps=[];for(let i=0;i<N;i++)ps.push(fetch('../shared/eng/p'+String(i).padStart(2,'0')+'.txt').then(r=>{if(!r.ok)throw new Error('HTTP '+r.status+' on p'+i);return r.text()}));
-let eng=(await Promise.all(ps)).join('').split('"#04060b"').join('"#0a1a5a"').split('"#06090f"').join('"#0b1f67"');
+let eng=(await Promise.all(ps)).join('').split('"#04060b"').join('"#0a1a5a"').split('"#06090f"').join('"#161616"');
 if(dict){try{eng=I.patchSource(eng,dict);(I.ENGX[lang]||[]).forEach(function(p){eng=eng.split(p[0]).join(p[1])});var LG=I.LANGS[lang];eng=eng.split('startsWith("en")').join('startsWith("'+LG.pre+'")').split('z.lang="en-US"').join('z.lang="'+LG.tag+'"')}catch(e){console.warn(e)}}
 const eu=URL.createObjectURL(new Blob([eng],{type:'text/javascript'}));
 step='app file';let app=await (await fetch('app.js')).text();if(dict){try{app=I.patchSource(app,dict)}catch(e){console.warn(e)}}app=app.split('"../shared/engine-X4OBJFUI.js"').join('"'+eu+'"');

@@ -1,4 +1,4 @@
-// Spartan Gold language support: EN (default), ZH, FR, PT
+// MMES language support: EN (default), ZH, FR, PT
 export const LANGS={en:{name:'English',tag:'en-US',pre:'en'},zh:{name:'中文',tag:'zh-CN',pre:'zh'},fr:{name:'Français',tag:'fr-FR',pre:'fr'},pt:{name:'Português',tag:'pt-PT',pre:'pt'}};
 export const BASE='https://cdn.jsdelivr.net/gh/360Zimbabwe/spartan-gold-3d@8044036030a967d8e74408a2438937c55293d515/shared/lang/';
 export function getLang(){var l='en';try{l=localStorage.getItem('sgLang')||'en'}catch(e){}return LANGS[l]?l:'en'}

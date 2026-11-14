@@ -1,7 +1,7 @@
 
 (function(){
 var l=document.getElementById('load'),sp=document.getElementById('intro');if(!sp)return;
-var LG='https://www.spartangold.africa/assets/logo.jpeg',si=sp.querySelector('img');si.onerror=function(){si.onerror=null;si.src='../shared/logo.svg'};si.src=LG;var vi=document.querySelector('#vg img');if(vi){vi.onerror=function(){vi.onerror=null;vi.src='../shared/logo.svg'};vi.src=LG}
+var LG='https://mukutemet.co.zw/wp-content/uploads/2026/03/MMES.png',si=sp.querySelector('img');si.onerror=function(){si.onerror=null;si.src='../shared/logo.svg'};si.src=LG;var vi=document.querySelector('#vg img');if(vi){vi.onerror=function(){vi.onerror=null;vi.src='../shared/logo.svg'};vi.src=LG}
 var HOLD=5000,t0=performance.now(),held=false,tm=0,ctx=null,AC=window.AudioContext||window.webkitAudioContext;
 function el(){return (performance.now()-t0)/1000}
 function noise(c){var n=c.sampleRate*2,b=c.createBuffer(1,n,c.sampleRate),d=b.getChannelData(0),p=0;for(var i=0;i<n;i++){p=p*.92+(Math.random()*2-1)*.08;d[i]=p*3.2}return b}
