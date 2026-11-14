@@ -1,6 +1,6 @@
 // MMES language support: EN (default), ZH, FR, PT
 export const LANGS={en:{name:'English',tag:'en-US',pre:'en'},zh:{name:'中文',tag:'zh-CN',pre:'zh'},fr:{name:'Français',tag:'fr-FR',pre:'fr'},pt:{name:'Português',tag:'pt-PT',pre:'pt'}};
-export const BASE='https://cdn.jsdelivr.net/gh/360Zimbabwe/spartan-gold-3d@8044036030a967d8e74408a2438937c55293d515/shared/lang/';
+export const BASE='https://cdn.jsdelivr.net/gh/360Zimbabwe/spartan-gold-3d@0787f37366ccbc938e6a9ee209aca38632a2104c/shared/lang/';
 export function getLang(){var l='en';try{l=localStorage.getItem('sgLang')||'en'}catch(e){}return LANGS[l]?l:'en'}
 export function setLang(l){try{localStorage.setItem('sgLang',l)}catch(e){}}
 export async function loadDict(l){if(l==='en')return null;var r=await fetch((window.SG_LANG_BASE||BASE)+l+'.json');if(!r.ok)throw new Error('lang HTTP '+r.status);return r.json()}
