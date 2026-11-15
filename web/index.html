@@ -23,8 +23,9 @@ iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(
 video.flythrough{position:absolute;inset:0;width:100%;height:100%;background:#000;display:none}
 video.flythrough.active{display:block}
 #music-btn{position:fixed;top:14px;right:14px;z-index:1000;background:#222222cc;color:#fff;border:1px solid #444;border-radius:20px;padding:6px 16px;cursor:pointer;font-size:12px;backdrop-filter:blur(8px)}
-@media(max-width:760px){#app{flex-direction:column}nav{width:100%;flex-direction:row;align-items:center;overflow-x:auto;overflow-y:hidden;border-right:0;border-bottom:1px solid var(--line);padding:8px max(10px,env(safe-area-inset-left,0px));gap:4px}
-.brand{border:0;margin:0;padding:0}.brand div,.lbl,.sp,.ct,.tab small{display:none}.brand img{width:36px;height:36px}.tab{width:auto;flex:none;padding:7px 10px}.tab b{font-size:12px;white-space:nowrap}.tab svg{width:16px;height:16px}}
+@media(max-width:760px){#app{flex-direction:column}nav{width:100%;flex-direction:row;align-items:center;overflow-x:auto;overflow-y:hidden;border-right:0;border-bottom:1px solid var(--line);padding:6px max(8px,env(safe-area-inset-left,0px));gap:2px;min-height:52px}
+.brand{border:0;margin:0;padding:0;flex:none}.brand div,.lbl,.sp,.ct,.tab small{display:none}.brand img{width:32px;height:32px;border-radius:4px}.tab{width:auto;flex:none;padding:6px 8px;gap:6px;border-radius:8px}.tab b{font-size:11px;white-space:nowrap}.tab svg{width:15px;height:15px}
+#music-btn{top:auto;bottom:8px;right:8px;padding:5px 12px;font-size:11px}}
 </style></head><body>
 <div id="app">
 <nav role="tablist" aria-label="MMES equipment">
