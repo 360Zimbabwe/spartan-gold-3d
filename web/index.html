@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mukute Metallurgical Engineering Solutions | 3D Equipment Guide</title>
+<style>
+:root{--bg:#08090c;--side:#0d0f14;--line:#1f2430;--fg:#eef0f4;--mut:#98a0b0;--acc:#ea6607;--accbg:#2a1a0a}
+*{box-sizing:border-box}html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+#app{display:flex;height:100%}
+nav{width:244px;flex:none;background:var(--side);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:4px;padding:16px 12px;overflow-y:auto}
+.brand{display:flex;align-items:center;gap:12px;padding:6px 6px 14px;border-bottom:1px solid var(--line);margin-bottom:6px;text-decoration:none;color:var(--fg)}
+.brand img{width:48px;height:48px;border-radius:6px;flex:none;object-fit:contain}
+.brand b{display:block;font-size:12px;letter-spacing:.03em;color:var(--acc);line-height:1.3}.brand small{display:block;color:var(--mut);font-size:11px;line-height:1.25}
+.lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);padding:10px 8px 4px}
+.tab{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:transparent;color:var(--fg);border:1px solid transparent;border-radius:10px;padding:9px 10px;cursor:pointer;font:inherit}
+.tab svg{width:20px;height:20px;flex:none;fill:none;stroke:var(--mut);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab span{display:flex;flex-direction:column;min-width:0}.tab b{font-size:14px;font-weight:600}.tab small{color:var(--mut);font-size:11.5px}
+.tab:hover{background:#151922}
+.tab[aria-selected=true]{background:var(--accbg);border-color:#6b3410}.tab[aria-selected=true] svg{stroke:var(--acc)}
+.tab:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.sp{flex:1}.ct{border-top:1px solid var(--line);padding:12px 8px 4px;font-size:11.5px;color:var(--mut);line-height:1.6}
+.ct a{color:var(--acc);text-decoration:none;display:block}.ct a:hover{text-decoration:underline}
+main{flex:1;min-width:0;position:relative}
+iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--bg)}
+video.flythrough{position:absolute;inset:0;width:100%;height:100%;background:#000;display:none}
+video.flythrough.active{display:block}
+#music-btn{position:fixed;top:14px;right:14px;z-index:1000;background:#222222cc;color:#fff;border:1px solid #444;border-radius:20px;padding:6px 16px;cursor:pointer;font-size:12px;backdrop-filter:blur(8px)}
+@media(max-width:760px){#app{flex-direction:column}nav{width:100%;flex-direction:row;align-items:center;overflow-x:auto;overflow-y:hidden;border-right:0;border-bottom:1px solid var(--line);padding:8px max(10px,env(safe-area-inset-left,0px));gap:4px}
+.brand{border:0;margin:0;padding:0}.brand div,.lbl,.sp,.ct,.tab small{display:none}.brand img{width:36px;height:36px}.tab{width:auto;flex:none;padding:7px 10px}.tab b{font-size:12px;white-space:nowrap}.tab svg{width:16px;height:16px}}
+</style></head><body>
+<div id="app">
+<nav role="tablist" aria-label="MMES equipment">
+<a class="brand" href="https://mukutemet.co.zw/" target="_blank" rel="noopener" aria-label="Mukute Metallurgical Engineering Solutions">
+  <img alt="MMES" src="https://mukutemet.co.zw/wp-content/uploads/2026/03/MMES.png" onerror="this.src='shared/logo.svg'">
+  <div><b>Mukute Metallurgical Engineering Solutions</b><small>Mineral processing equipment</small></div>
+</a>
+<div class="lbl">Comminution</div>
+<button class="tab" role="tab" data-id="jaw" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M6 20V9l6-4 6 4v11M9 20v-5h6v5"/></svg><span><b>Jaw crusher</b><small>Primary crushing</small></span></button>
+<button class="tab" role="tab" data-id="hammer" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0-6 0M12 3v6M12 15v6M3 12h6M15 12h6"/></svg><span><b>Hammer mill</b><small>Impact grinding</small></span></button>
+<button class="tab" role="tab" data-id="round" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0-18 0M7 12h10M12 12v-5"/></svg><span><b>Round mill</b><small>Wet pan grinding</small></span></button>
+<button class="tab" role="tab" data-id="stamp" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3v12M16 3v12M5 15h6M13 15h6M4 21h16"/></svg><span><b>Stamp mill</b><small>Models 1450 and 1750</small></span></button>
+<button class="tab" role="tab" data-id="ball" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h16v6H4zM8 12h.01M12 11h.01M15 13h.01M2 12h2M20 12h2"/></svg><span><b>Ball mill</b><small>Tumbling grinding</small></span></button>
+<div class="lbl">Processing plants</div>
+<button class="tab" role="tab" data-id="vat" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14v13H5zM5 10h14M9 14h.01M13 16h.01"/></svg><span><b>Vat leach tanks</b><small>Concrete vats</small></span></button>
+<button class="tab" role="tab" data-id="cip" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M7 20V8h4v12M13 20V4h4v16"/></svg><span><b>CIP / CIL plant</b><small>20 to 500 tpd</small></span></button>
+<div class="lbl">Refining</div>
+<button class="tab" role="tab" data-id="elution" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c3 4 5 6.5 5 9a5 5 0 0 1-10 0c0-2.5 2-5 5-9z"/></svg><span><b>Elution plant</b><small>Gold stripping</small></span></button>
+<button class="tab" role="tab" data-id="smelt" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20h14M7 20v-6h10v6M9 14c0-3 3-3 3-6 2 2 3 3 3 6"/></svg><span><b>Smelting plant</b><small>Furnace and pouring</small></span></button>
+<div class="lbl">Flythrough films</div>
+<button class="tab" role="tab" data-id="fly-jaw" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg><span><b>Jaw crusher</b><small>Film</small></span></button>
+<button class="tab" role="tab" data-id="fly-hammer" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg><span><b>Hammer mill</b><small>Film</small></span></button>
+<button class="tab" role="tab" data-id="fly-round" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg><span><b>Round mill</b><small>Film</small></span></button>
+<button class="tab" role="tab" data-id="fly-stamp" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg><span><b>Stamp mill</b><small>Film</small></span></button>
+<button class="tab" role="tab" data-id="fly-ball" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg><span><b>Ball mill</b><small>Film</small></span></button>
+<button class="tab" role="tab" data-id="fly-vat" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg><span><b>Vat leach</b><small>Film</small></span></button>
+<button class="tab" role="tab" data-id="fly-cip" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg><span><b>CIP / CIL</b><small>Film</small></span></button>
+<button class="tab" role="tab" data-id="fly-elution" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg><span><b>Elution</b><small>Film</small></span></button>
+<button class="tab" role="tab" data-id="fly-smelt" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg><span><b>Smelting</b><small>Film</small></span></button>
+<div class="sp"></div>
+<div class="ct">No 9, 37th Avenue, Mabelreign, Harare, Zimbabwe<a href="tel:+263781252493">+263 78 125 2493</a><a href="tel:+263776582471">+263 77 658 2471</a><a href="mailto:sales@mukutemet.co.zw">sales@mukutemet.co.zw</a><a href="https://mukutemet.co.zw/" target="_blank" rel="noopener">Website</a><a href="https://www.facebook.com/mukutemet/" target="_blank" rel="noopener">Facebook</a></div>
+</nav>
+<main id="stage"></main>
+</div>
+<button id="music-btn">Play music</button>
+<audio id="bgm" loop></audio>
+<script>
+var CDN='https://cdn.jsdelivr.net/gh/360Zimbabwe/spartan-gold-3d@a25a4ca521d28c4ecb877a973f190985cffd0803/';
+var VIEWERS={jaw:'jaw/',hammer:'hammer/',round:'round/',stamp:'stamp/',ball:'ball/',vat:'vat/',cip:'cip/',elution:'elution/',smelt:'smelt/'};
+var FILMS={jaw:'films-mmes/jaw.mp4',hammer:'films-mmes/hammer.mp4',round:'films-mmes/round.mp4',stamp:'films-mmes/stamp.mp4',ball:'films-mmes/ball.mp4',vat:'films-mmes/vat.mp4',cip:'films-mmes/cip.mp4',elution:'films-mmes/elution.mp4',smelt:'films-mmes/smelt.mp4'};
+var MUSIC=[CDN+'web/shared/bgm.mp3','shared/bgm.mp3'];
+var cur=null,activeEl=null;
+var aud=document.getElementById('bgm');
+var mbtn=document.getElementById('music-btn');
+var stage=document.getElementById('stage');
+var muted=false,musicReady=false;
+
+try{muted=localStorage.getItem('mmesMuted')==='1';}catch(e){}
+
+function tryLoadMusic(idx){
+  if(idx>=MUSIC.length)return;
+  aud.src=MUSIC[idx];
+  aud.onerror=function(){tryLoadMusic(idx+1);};
+  aud.oncanplaythrough=function(){
+    musicReady=true;
+    mbtn.textContent=muted?'Music off':'Music on';
+    if(!muted)aud.play().catch(function(){});
+  };
+  aud.load();
+}
+
+function startMusic(){
+  if(!musicReady)tryLoadMusic(0);
+  document.removeEventListener('pointerdown',startMusic);
+  document.removeEventListener('keydown',startMusic);
+}
+document.addEventListener('pointerdown',startMusic);
+document.addEventListener('keydown',startMusic);
+
+mbtn.onclick=function(){
+  startMusic();
+  muted=!muted;
+  if(muted){aud.pause();}else{if(musicReady)aud.play().catch(function(){});}
+  mbtn.textContent=musicReady?(muted?'Music off':'Music on'):'Play music';
+  try{localStorage.setItem('mmesMuted',muted?'1':'0');}catch(e){}
+};
+
+function show(id){
+  if(cur===id)return;
+  cur=id;
+  document.querySelectorAll('.tab').forEach(function(t){t.setAttribute('aria-selected',t.dataset.id===id);});
+  // Remove old content
+  while(stage.firstChild)stage.removeChild(stage.firstChild);
+
+  if(id.indexOf('fly-')===0){
+    // Flythrough film
+    var key=id.slice(4);
+    var v=document.createElement('video');
+    v.className='flythrough active';
+    v.controls=true;
+    v.autoplay=true;
+    v.loop=true;
+    v.playsInline=true;
+    // Try CDN first, fallback to relative
+    var src1=CDN+FILMS[key];
+    var src2=FILMS[key];
+    var s1=document.createElement('source');s1.src=src1;s1.type='video/mp4';
+    var s2=document.createElement('source');s2.src=src2;s2.type='video/mp4';
+    v.appendChild(s1);v.appendChild(s2);
+    stage.appendChild(v);
+    v.play().catch(function(){});
+  } else {
+    // Interactive 3D viewer
+    var fr=document.createElement('iframe');
+    fr.title=id;
+    fr.allow='fullscreen; autoplay';
+    fr.setAttribute('allowfullscreen','');
+    fr.src=VIEWERS[id];
+    stage.appendChild(fr);
+  }
+  try{history.replaceState(null,'','#'+id);}catch(e){}
+}
+
+document.querySelectorAll('.tab').forEach(function(t){
+  t.addEventListener('click',function(){show(t.dataset.id);});
+});
+
+var init=(location.hash||'').slice(1)||'jaw';
+show(init);
+</script></body></html>
