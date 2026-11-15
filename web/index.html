@@ -63,10 +63,10 @@ video.flythrough.active{display:block}
 <button id="music-btn">Play music</button>
 <audio id="bgm" loop></audio>
 <script>
-var CDN='https://cdn.jsdelivr.net/gh/360Zimbabwe/spartan-gold-3d@a25a4ca521d28c4ecb877a973f190985cffd0803/';
-var VIEWERS={jaw:'jaw/',hammer:'hammer/',round:'round/',stamp:'stamp/',ball:'ball/',vat:'vat/',cip:'cip/',elution:'elution/',smelt:'smelt/'};
-var FILMS={jaw:'films-mmes/jaw.mp4',hammer:'films-mmes/hammer.mp4',round:'films-mmes/round.mp4',stamp:'films-mmes/stamp.mp4',ball:'films-mmes/ball.mp4',vat:'films-mmes/vat.mp4',cip:'films-mmes/cip.mp4',elution:'films-mmes/elution.mp4',smelt:'films-mmes/smelt.mp4'};
-var MUSIC=[CDN+'web/shared/bgm.mp3','shared/bgm.mp3'];
+var CDN='https://cdn.jsdelivr.net/gh/360Zimbabwe/spartan-gold-3d@6610351592a2432b42e181f0b404c640a9f8c025/';
+var VIEWERS={jaw:CDN+'jaw/',hammer:CDN+'hammer/',round:CDN+'round/',stamp:CDN+'stamp/',ball:CDN+'ball/',vat:CDN+'vat/',cip:CDN+'cip/',elution:CDN+'elution/',smelt:CDN+'smelt/'};
+var FILMS={jaw:CDN+'films-mmes/jaw.mp4',hammer:CDN+'films-mmes/hammer.mp4',round:CDN+'films-mmes/round.mp4',stamp:CDN+'films-mmes/stamp.mp4',ball:CDN+'films-mmes/ball.mp4',vat:CDN+'films-mmes/vat.mp4',cip:CDN+'films-mmes/cip.mp4',elution:CDN+'films-mmes/elution.mp4',smelt:CDN+'films-mmes/smelt.mp4'};
+var MUSIC=[CDN+'web/shared/bgm.mp3',CDN+'web/shared/bgm.mp3'];
 var cur=null,activeEl=null;
 var aud=document.getElementById('bgm');
 var mbtn=document.getElementById('music-btn');
