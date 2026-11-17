@@ -1,10 +1,10 @@
 /* MataSon explainer infographics: pure inline SVG + CSS, no external assets */
 const applyIG=(function(){
 const IG_CSS=`
-.ig{margin:12px 0 6px;padding:10px 8px 8px}
+.ig{margin:12px 0 6px;padding:10px 3px 8px}
 .ig svg{width:100%;height:auto;display:block;overflow:visible}
 .ig text{font-family:'Space Grotesk','Inter',sans-serif}
-.ig p{text-align:center;margin-top:6px;font-size:11.5px}
+.ig p{text-align:center;margin-top:8px;font-size:16px;line-height:1.4;color:rgba(220,238,228,.9)}
 .ig .pop{opacity:0;transform-box:fill-box;transform-origin:center}
 .xe.in .pop{animation:igPop .9s var(--spring,cubic-bezier(.2,.9,.3,1.25)) both;animation-delay:calc(var(--d,0)*.18s + .25s)}
 @keyframes igPop{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:none}}
@@ -28,9 +28,9 @@ const IG_CSS=`
 .xc{will-change:transform}
 .xc:not(.ig):hover{transform:translateY(-2px) scale(1.015);transition:transform .35s cubic-bezier(.2,.9,.3,1.4)}
 .xc:active{transform:scale(.975)!important;transition:transform .12s ease}
-.xc b.hasico{display:flex;align-items:center;gap:7px}
-.ico{flex:0 0 22px;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(56,217,128,.12);box-shadow:0 0 0 1px rgba(56,217,128,.35),0 0 10px rgba(56,217,128,.18);opacity:0}
-.ico svg{width:15px;height:15px;overflow:visible}
+.xc b.hasico{display:flex;align-items:center;gap:9px}
+.ico{flex:0 0 30px;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(56,217,128,.12);box-shadow:0 0 0 1px rgba(56,217,128,.35),0 0 10px rgba(56,217,128,.18);opacity:0}
+.ico svg{width:21px;height:21px;overflow:visible}
 .xe.in .ico{animation:igIco 1s cubic-bezier(.2,.9,.3,1.3) .35s both,igBob 3.2s ease-in-out 1.6s infinite}
 @supports (transition-timing-function:linear(0,1)){.xe.in .ico{animation:igIco 1.1s var(--spring) .35s both,igBob 3.2s ease-in-out 1.6s infinite}}
 @keyframes igIco{from{opacity:0;transform:scale(.2) rotate(-70deg)}to{opacity:1;transform:none}}
@@ -40,7 +40,8 @@ const IG_CSS=`
 const IG={GR:'#38d980',GD:'#f0d060',OR:'#e08a50',WH:'#eafff4',DM:'rgba(200,222,212,.72)',BG:'rgba(14,40,28,.8)'};
 const {GR,GD,OR,WH,DM,BG}=IG;
 const co=(rest)=>`CO<tspan font-size='70%' dy='2'>2</tspan><tspan dy='-2'>${rest||''}</tspan>`;
-const T=(x,y,t,o)=>{o=o||{};return `<text x='${x}' y='${y}' text-anchor='${o.a||'middle'}' font-size='${o.s||10}' font-weight='${o.w||600}' fill='${o.c||WH}'${o.ls?` letter-spacing='${o.ls}'`:''}>${t}</text>`;};
+const FS=v=>Math.max(10.5,Math.round((v||10)*1.2*10)/10);
+const T=(x,y,t,o)=>{o=o||{};return `<text x='${x}' y='${y}' text-anchor='${o.a||'middle'}' font-size='${FS(o.s)}' font-weight='${o.w||600}' fill='${o.c||WH}'${o.ls?` letter-spacing='${o.ls}'`:''}>${t}</text>`;};
 const TL=(x,y,ls,o)=>{o=o||{};const lh=o.lh||11;return ls.map((t,i)=>T(x,y+i*lh,t,o)).join('');};
 const R=(x,y,w,h,o)=>{o=o||{};return `<rect x='${x}' y='${y}' width='${w}' height='${h}' rx='${o.r==null?8:o.r}' fill='${o.f||BG}' stroke='${o.s||GR}' stroke-width='${o.sw||1.2}'${o.d?` stroke-dasharray='${o.d}'`:''}/>`;};
 const C=(x,y,r,o)=>{o=o||{};return `<circle cx='${x}' cy='${y}' r='${r}' fill='${o.f||BG}' stroke='${o.s||GR}' stroke-width='${o.sw||1.4}'${o.d?` stroke-dasharray='${o.d}'`:''}${o.cl?` class='${o.cl}'`:''}/>`;};
@@ -131,7 +132,7 @@ xs.forEach((x,i)=>{b+=G(i*.5+.3,AR(i===0?40:xs[i-1]+25,50,x-25,50,GR));
 b+=G(i+.5,R(x-22,28,44,44,{r:10,s:GD,f:'rgba(212,168,48,.1)'})+`<g transform='translate(${x} 50)'><rect x='-9' y='-2' width='18' height='14' rx='2.5' fill='${GD}'/><g class='shackle' style='--d:${i}'><path d='M-5 -2V-7A5 5 0 0 1 5 -7V-2' fill='none' stroke='${GD}' stroke-width='2.4'/></g></g>`+T(x,20,'LOCK '+(i+1),{s:8.5,c:GD,ls:1})+TL(x,86,lb[i],{s:9.5}));});
 b+=G(2.2,AR(240,50,256,50,GR))+G(3,C(278,50,16,{s:GD,f:'rgba(212,168,48,.2)',cl:'pulse'})+IC('coin',278,50,1.3,GD)+T(278,84,'Token',{s:9.5,c:GD}))+G(4,T(150,122,'All three must open, or no token is released.',{s:10,c:GD}));
 return S(300,132,b);};
-const ig12=()=>{let b=R(10,74,280,44,{r:6,f:'rgba(60,40,18,.45)',s:OR,sw:1})+G(0,T(80,18,'1  Retire first',{s:10.5,c:GD})+IC('coin',80,40,1.4,GD)+AR(80,54,80,80,GD)+IC('coin',80,96,1.3,'rgba(240,208,96,.5)')+T(80,112,'buried for good',{s:8.5,c:DM,w:400}))
+const ig12=()=>{let b=R(10,74,280,44,{r:6,f:'rgba(60,40,18,.45)',s:OR,sw:1})+G(0,T(80,18,'1  Retire first',{s:10.5,c:GD})+IC('coin',80,40,1.4,GD)+AR(80,54,80,80,GD)+IC('coin',80,96,1.3,'rgba(240,208,96,.5)')+T(100,100,'buried for good',{a:'start',s:8.5,c:DM,w:400}))
 +G(1.5,P('M98 90C130 80 170 52 204 46',{s:GD,sw:1.4,d:'4 4',m:'ahY'})+T(140,44,'only then',{s:8.5,c:DM,w:400}))
 +G(2.5,T(230,18,'2  Release second',{s:10.5,c:GR})+C(230,46,17,{s:GR,f:'rgba(56,217,128,.14)',cl:'pulse'})+IC('coin',230,46,1.4,GR));
 return S(300,124,b);};
