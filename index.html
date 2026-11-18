@@ -19,7 +19,8 @@ nav{width:244px;flex:none;background:var(--side);border-right:1px solid var(--li
 .sp{flex:1}.ct{border-top:1px solid var(--line);padding:12px 8px 4px;font-size:12px;color:var(--mut);line-height:1.6}
 .ct a{color:#ea6607;text-decoration:none;display:block}.ct a:hover{text-decoration:underline}
 main{flex:1;min-width:0;position:relative}
-iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--bg)}
+iframe,video.film{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--bg)}
+video.film{object-fit:contain;background:#000}
 .lg{display:flex;align-items:center;gap:8px;margin:2px 6px 4px;flex:none}.lg svg{width:18px;height:18px;fill:none;stroke:var(--mut);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.lg select{flex:1;font:600 13px system-ui,sans-serif;color:var(--fg);background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 8px}
 #snd{position:fixed;right:16px;bottom:16px;z-index:9;display:flex;align-items:center;gap:8px;background:#fff;color:#161616;border:1px solid #9fc0f0;border-radius:999px;padding:9px 16px 9px 12px;font:600 13px system-ui,sans-serif;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.35)}#snd:hover{background:#edf3fc}#snd svg{width:18px;height:18px;fill:none;stroke:#ea6607;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 @media(max-width:760px){#app{flex-direction:column}nav{width:100%;flex-direction:row;align-items:center;overflow-x:auto;overflow-y:hidden;border-right:0;border-bottom:1px solid var(--line);padding:8px max(10px,env(safe-area-inset-left,0px));gap:6px}
@@ -40,21 +41,35 @@ iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(
 <button class="tab" role="tab" data-id="cip" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M7 20V8h4v12M13 20V4h4v16"/></svg><span><b>CIP / CIL plant</b><small>20 to 500 tpd</small></span></button>
 <button class="tab" role="tab" data-id="elution" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c3 4 5 6.5 5 9a5 5 0 0 1-10 0c0-2.500 2-5 5-9z"/></svg><span><b>Elution plant</b><small>Gold stripping</small></span></button>
 <button class="tab" role="tab" data-id="smelt" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20h14M7 20v-6h10v6M9 14c0-3 3-3 3-6 2 2 3 3 3 6"/></svg><span><b>Smelting plant</b><small>Furnace and pouring</small></span></button>
+<div class="lbl">Fly-through films</div>
+<button class="tab" role="tab" data-id="fly-jaw" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 4 19 12 6 20 6 4"/></svg><span><b>Jaw crusher</b><small>Fly-through film</small></span></button>
+<button class="tab" role="tab" data-id="fly-hammer" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 4 19 12 6 20 6 4"/></svg><span><b>Hammer mill</b><small>Fly-through film</small></span></button>
+<button class="tab" role="tab" data-id="fly-round" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 4 19 12 6 20 6 4"/></svg><span><b>Round mill</b><small>Fly-through film</small></span></button>
+<button class="tab" role="tab" data-id="fly-stamp" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 4 19 12 6 20 6 4"/></svg><span><b>Stamp mill</b><small>Fly-through film</small></span></button>
+<button class="tab" role="tab" data-id="fly-ball" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 4 19 12 6 20 6 4"/></svg><span><b>Ball mill</b><small>Fly-through film</small></span></button>
+<button class="tab" role="tab" data-id="fly-vat" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 4 19 12 6 20 6 4"/></svg><span><b>Vat leach tanks</b><small>Fly-through film</small></span></button>
+<button class="tab" role="tab" data-id="fly-cip" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 4 19 12 6 20 6 4"/></svg><span><b>CIP / CIL plant</b><small>Fly-through film</small></span></button>
+<button class="tab" role="tab" data-id="fly-elution" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 4 19 12 6 20 6 4"/></svg><span><b>Elution plant</b><small>Fly-through film</small></span></button>
+<button class="tab" role="tab" data-id="fly-smelt" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 4 19 12 6 20 6 4"/></svg><span><b>Smelting plant</b><small>Fly-through film</small></span></button>
 <div class="sp"></div>
 <div class="ct">No 9, 37th Avenue, Mabelreign, Harare<a href="tel:+263781252493">+263 78 125 2493</a><a href="tel:+263776582471">+263 77 658 2471</a><a href="mailto:sales@mukutemet.co.zw">sales@mukutemet.co.zw</a><a href="https://mukutemet.co.zw/" target="_blank" rel="noopener">Website</a><a href="https://www.facebook.com/mukutemet/" target="_blank" rel="noopener">Facebook</a></div>
 </nav>
 <main id="stage"></main>
 </div>
 <button id="snd" type="button" aria-pressed="false" title="Background music"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.500a9 9 0 0 1 0 13"/></svg><span>Music on</span></button>
-<audio id="bgm" src="https://cdn.jsdelivr.net/gh/360Zimbabwe/spartan-gold-3d@a886cd127f5bedbc9da45758f43d739e29b7ac81/shared/bgm.mp3" loop preload="auto"></audio>
+<audio id="bgm" src="shared/bgm.mp3" loop preload="auto"></audio>
 <script>
 var U={jaw:'jaw/',hammer:'hammer/',round:'round/',stamp:'stamp/',ball:'ball/',vat:'vat/',cip:'cip/',elution:'elution/',smelt:'smelt/'},cur=null,fr=null;
 function show(id){
- if(!U[id])id='jaw';if(cur===id&&fr)return;cur=id;
+ if(!U[id]&&id.indexOf('fly-')!==0)id='jaw';if(cur===id&&fr)return;cur=id;
  document.querySelectorAll('.tab').forEach(function(t){t.setAttribute('aria-selected',t.dataset.id===id)});
  if(fr)fr.remove();
+ if(id.indexOf('fly-')===0){fr=document.createElement('video');fr.className='film';fr.controls=true;fr.autoplay=true;fr.loop=true;fr.playsInline=true;fr.preload='auto';fr.src='films-mmes/'+id.slice(4)+'.mp4';
+  document.getElementById('stage').appendChild(fr);var pp=fr.play();if(pp&&pp.catch)pp.catch(function(){});
+  try{var A=document.getElementById('bgm');A.pause()}catch(e){}
+ }else{
  fr=document.createElement('iframe');fr.title=id;fr.allow='fullscreen; autoplay';fr.setAttribute('allowfullscreen','');fr.src=U[id];
- document.getElementById('stage').appendChild(fr);
+ document.getElementById('stage').appendChild(fr);}
  try{history.replaceState(null,'','#'+id)}catch(e){}
 }
 document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){show(t.dataset.id)})});
