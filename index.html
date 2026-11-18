@@ -21,6 +21,7 @@ nav{width:244px;flex:none;background:var(--side);border-right:1px solid var(--li
 main{flex:1;min-width:0;position:relative}
 iframe,video.film{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--bg)}
 video.film{object-fit:contain;background:#000}
+#cap{position:absolute;left:16px;top:14px;z-index:5;background:rgba(0,0,0,.62);color:#fff;font:600 14px system-ui,sans-serif;padding:8px 14px;border-radius:999px;pointer-events:none}
 .lg{display:flex;align-items:center;gap:8px;margin:2px 6px 4px;flex:none}.lg svg{width:18px;height:18px;fill:none;stroke:var(--mut);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.lg select{flex:1;font:600 13px system-ui,sans-serif;color:var(--fg);background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 8px}
 #snd{position:fixed;right:16px;bottom:16px;z-index:9;display:flex;align-items:center;gap:8px;background:#fff;color:#161616;border:1px solid #9fc0f0;border-radius:999px;padding:9px 16px 9px 12px;font:600 13px system-ui,sans-serif;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.35)}#snd:hover{background:#edf3fc}#snd svg{width:18px;height:18px;fill:none;stroke:#ea6607;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 @media(max-width:760px){#app{flex-direction:column}nav{width:100%;flex-direction:row;align-items:center;overflow-x:auto;overflow-y:hidden;border-right:0;border-bottom:1px solid var(--line);padding:8px max(10px,env(safe-area-inset-left,0px));gap:6px}
@@ -30,6 +31,8 @@ video.film{object-fit:contain;background:#000}
 <nav role="tablist" aria-label="MMES equipment">
 <a class="brand" href="mailto:sales@mukutemet.co.zw" aria-label="Mukute Metallurgical Engineering Solutions"><img alt="" src="https://mukutemet.co.zw/wp-content/uploads/2026/03/MMES.png" onerror="this.onerror=null;this.src='shared/logo.svg'"><div><b>MMES</b><small>Mineral processing equipment and plants</small></div></a>
 <label class="lg" for="lang"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0-18 0M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg><select id="lang" aria-label="Language"><option value="en">English</option><option value="zh">中文</option><option value="fr">Français</option><option value="pt">Português</option></select></label>
+<div class="lbl">Presentation</div>
+<button class="tab" role="tab" data-id="present" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg><span><b>Play presentation</b><small>All fly-throughs, in order</small></span></button>
 <div class="lbl">Comminution</div>
 <button class="tab" role="tab" data-id="jaw" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M6 20V9l6-4 6 4v11M9 20v-5h6v5"/></svg><span><b>Jaw crusher</b><small>Primary crushing</small></span></button>
 <button class="tab" role="tab" data-id="hammer" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0-6 0M12 3v6M12 15v6M3 12h6M15 12h6"/></svg><span><b>Hammer mill</b><small>Impact grinding</small></span></button>
@@ -61,10 +64,17 @@ video.film{object-fit:contain;background:#000}
 <script>
 var U={jaw:'jaw/',hammer:'hammer/',round:'round/',stamp:'stamp/',ball:'ball/',vat:'vat/',cip:'cip/',elution:'elution/',smelt:'smelt/'},cur=null,fr=null;
 function show(id){
- if(!U[id]&&id.indexOf('fly-')!==0)id='jaw';if(cur===id&&fr)return;cur=id;
+ if(!U[id]&&id.indexOf('fly-')!==0&&id!=='present')id='jaw';if(cur===id&&fr)return;cur=id;
  document.querySelectorAll('.tab').forEach(function(t){t.setAttribute('aria-selected',t.dataset.id===id)});
  if(fr)fr.remove();
- if(id.indexOf('fly-')===0){fr=document.createElement('video');fr.className='film';fr.controls=true;fr.autoplay=true;fr.loop=true;fr.playsInline=true;fr.preload='auto';fr.src='films-mmes/'+id.slice(4)+'.mp4';
+ if(id==='present'){var Q=[['jaw','Jaw crusher'],['hammer','Hammer mill'],['round','Round mill'],['stamp','Stamp mill'],['ball','Ball mill'],['vat','Vat leach tanks'],['cip','CIP / CIL plant'],['elution','Elution plant'],['smelt','Smelting plant']],qi=0,box=document.createElement('div');box.style.cssText='position:absolute;inset:0';
+  var v=document.createElement('video');v.className='film';v.controls=true;v.autoplay=true;v.playsInline=true;v.preload='auto';
+  var cp=document.createElement('div');cp.id='cap';box.appendChild(v);box.appendChild(cp);fr=box;
+  function pl(){cp.textContent=(qi+1)+' / '+Q.length+'  ·  '+Q[qi][1];v.src='films-mmes/'+Q[qi][0]+'.mp4';var q=v.play();if(q&&q.catch)q.catch(function(){})}
+  v.addEventListener('ended',function(){qi=(qi+1)%Q.length;pl()});
+  document.getElementById('stage').appendChild(box);pl();
+  try{document.getElementById('bgm').pause()}catch(e){}
+ }else if(id.indexOf('fly-')===0){fr=document.createElement('video');fr.className='film';fr.controls=true;fr.autoplay=true;fr.loop=true;fr.playsInline=true;fr.preload='auto';fr.src='films-mmes/'+id.slice(4)+'.mp4';
   document.getElementById('stage').appendChild(fr);var pp=fr.play();if(pp&&pp.catch)pp.catch(function(){});
   try{var A=document.getElementById('bgm');A.pause()}catch(e){}
  }else{
