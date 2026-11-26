@@ -281,10 +281,10 @@ canvas#c{display:block;width:100%;height:100%}
 canvas#bg{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;background:#030508}
 #wrap{z-index:1}
 #loading{background:#030508}
-#loading{--sw:min(115vw,138vh)}
+#loading{--sw:min(96vw,54vh,560px)}
 #stage{position:relative;width:var(--sw);aspect-ratio:3/4;margin:0 auto;flex:none}
 #stage video,#stage img.still{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;transition:opacity .5s ease}
-#stage video{mix-blend-mode:screen;opacity:0!important}
+#stage video{mix-blend-mode:screen}
 #loading{overflow:hidden;perspective:900px}
 #stage{will-change:transform,filter;transform-style:preserve-3d}
 #stage video.off{opacity:0;transition-delay:.35s}
@@ -301,7 +301,7 @@ canvas#bg{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.55) 35%,#fff 50%,rgba(255,255,255,.55) 65%,transparent);mix-blend-mode:plus-lighter}
 .gm.on i{animation:gleamX 2.7s cubic-bezier(.45,.05,.3,1) .1s infinite}
 @keyframes gleamX{0%{transform:translateX(-140%) skewX(-18deg)}55%,100%{transform:translateX(480%) skewX(-18deg)}}
-#tap{position:fixed;left:0;right:0;top:min(calc(50% + var(--sw)*.30),calc(100% - 52px));margin:0;z-index:3;opacity:0;transition:opacity .9s ease}
+#tap{position:fixed;left:0;right:0;top:min(calc(50% + var(--sw)*.34),calc(100% - 52px));margin:0;z-index:3;opacity:0;transition:opacity .9s ease}
 #tap.on{opacity:1}
 #logo-overlay .tl{position:relative;width:clamp(130px,34vw,200px);margin:0 auto;aspect-ratio:var(--ar,2.98)}
 #logo-overlay .tl img{position:absolute;inset:0;width:100%;height:100%;display:block;filter:drop-shadow(0 0 calc(5px + var(--bass,0)*10px) rgba(120,255,190,.4))}
@@ -340,13 +340,18 @@ canvas#bg{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;
 #xp-body .xc .tg,#xp-body .xj .lk{font-size:10.5px}
 #xp-body{max-width:620px}
 /* bigger top logo, tabs moved clear below it, larger buttons, everything in capitals */
-:root{--lw:clamp(200px,58vw,270px)}
+:root{--lw:clamp(170px,50vw,230px)}
+/* write-ups: a clear black band under the tabs; the text starts below it and fades out before it reaches the tabs */
+#xp::before{height:calc(env(safe-area-inset-top,0px) + 142px)!important;background:linear-gradient(#020507 calc(100% - 48px),rgba(2,5,7,0))!important}
+#xp-scroll{padding-top:calc(env(safe-area-inset-top,0px) + 168px)!important}
+body:has(#xp.open) #tabs{top:calc(env(safe-area-inset-top,0px) + 60px)!important;left:50%!important;transform:translateX(-50%);width:min(calc(100vw - 20px),640px)!important;gap:6px!important}
+body:has(#xp.open) .tab{font-size:clamp(9.5px,2.6vw,13px)!important;padding:13px 0!important}
+#step-box{top:var(--sbTop,auto)!important;bottom:var(--sbBottom,150px)!important;left:var(--sbLeft,14px)!important;right:var(--sbRight,14px)!important;width:var(--sbW,auto)!important;min-height:98px!important;z-index:12!important}
 #coin-labels{display:none!important}
 body{text-transform:uppercase}
 #logo-overlay .tl{width:var(--lw)!important}
-#tabs{top:calc(max(20px,env(safe-area-inset-top,0px)) + var(--lw)/2.98 + 16px)!important;gap:6px!important}
-.tab{font-size:10.5px!important;letter-spacing:.03em!important;padding:13px 2px!important;max-width:150px!important}
-@media (min-width:720px){.tab{font-size:13px!important;padding:14px 6px!important}}
+#tabs{top:var(--tabTop,110px)!important;left:var(--tabLeft,10px)!important;right:auto!important;width:var(--tabW,360px)!important;gap:3px!important;padding:0!important;overflow:visible!important}
+.tab{font-size:var(--tabFs,8px)!important;letter-spacing:0!important;padding:.75em 0!important;max-width:none!important;border-radius:5px!important}
 .pp{font-size:12px!important;padding:14px 4px!important;letter-spacing:.08em!important}
 @media (min-width:720px){.pp{font-size:13.5px!important;padding:15px 6px!important}#ui{max-width:860px!important}}
 #ui{gap:8px!important;max-width:520px}
@@ -1161,13 +1166,25 @@ const AS=1024,GLOBE={x:742/1254*AS,y:432/1254*AS,r:150/1254*AS},WFALL={x:870/125
 function bgResize(){
   bDPR=Math.min(devicePixelRatio||1,1.5);bW=Math.round(innerWidth*bDPR);bH=Math.round(innerHeight*bDPR);
   bgc.width=bW;bgc.height=bH;
-  bS=Math.min(bW,bH)/AS;bOX=(bW-AS*bS)/2;bOY=(bH-AS*bS)/2;
+  {const lo=document.getElementById('logo-overlay'),ui=document.getElementById('ui');
+  let topR=lo?lo.getBoundingClientRect().bottom+10:100;if(!(topR>40))topR=100;
+  let botR=ui&&ui.offsetHeight>0?innerHeight-ui.getBoundingClientRect().top+10:110;if(!(botR>40))botR=110;
+  const wide=innerWidth>=900&&innerWidth>innerHeight*1.25,uiBot=botR;if(!wide)botR+=112;   // phones: leave room for the caption box between the circle and the buttons
+  const avail=Math.max(200,innerHeight-topR-botR),sz=Math.min(innerWidth,avail)*bDPR;
+  bS=sz/AS;bOX=(bW-sz)/2;bOY=topR*bDPR+(avail*bDPR-sz)/2;
+  const rs=document.documentElement.style,css=sz/bDPR,tw=Math.min(css*.7,Math.max(css*.56,236));
+  rs.setProperty('--tabTop',(bOY/bDPR+css*.165).toFixed(1)+'px');rs.setProperty('--tabLeft',((innerWidth-tw)/2).toFixed(1)+'px');
+  rs.setProperty('--tabW',tw.toFixed(1)+'px');
+  {const tb=document.getElementById('tabs');rs.setProperty('--xpTop',Math.round((tb?tb.getBoundingClientRect().bottom:200)+30)+'px');}
+  if(wide){rs.setProperty('--sbTop',(bOY/bDPR+css*.3).toFixed(1)+'px');rs.setProperty('--sbBottom','auto');rs.setProperty('--sbLeft','24px');rs.setProperty('--sbRight','auto');rs.setProperty('--sbW',Math.max(220,Math.min(360,(innerWidth-css)/2-40)).toFixed(0)+'px');}
+  else{rs.setProperty('--sbTop','auto');rs.setProperty('--sbBottom',(uiBot-2).toFixed(1)+'px');rs.setProperty('--sbLeft','14px');rs.setProperty('--sbRight','14px');rs.setProperty('--sbW','auto');}
+  rs.setProperty('--tabFs',Math.max(7.4,Math.min(12,tw/5/6.7)).toFixed(1)+'px');}
   cov=document.createElement('canvas');cov.width=bW;cov.height=bH;cx2=cov.getContext('2d');
   tmpc=document.createElement('canvas');tmpc.width=bW;tmpc.height=bH;tx=tmpc.getContext('2d');
   mkc=document.createElement('canvas');mkc.width=bW;mkc.height=bH;mx=mkc.getContext('2d');
   if(artOK){cx2.drawImage(ART,bOX,bOY,AS*bS,AS*bS);}
 }
-addEventListener('resize',bgResize);bgResize();
+addEventListener('resize',bgResize);bgResize();addEventListener('load',bgResize);setTimeout(bgResize,600);setTimeout(bgResize,2500);
 const A2S=(ax,ay)=>[bOX+ax*bS,bOY+ay*bS];
 // art elements that fade up out of the black one after another: [x,y,radius (art px of 1254), start s, duration s]
 const REVEAL=[[330,300,240,0.17,3.82],
@@ -1208,7 +1225,10 @@ function bgDraw(t){
     rg2.addColorStop(0,'rgba(255,255,255,'+pr.toFixed(3)+')');rg2.addColorStop(0.5,'rgba(255,255,255,'+(pr*0.8).toFixed(3)+')');rg2.addColorStop(1,'rgba(255,255,255,0)');
     mx.fillStyle=rg2;mx.fillRect(bx0-rr,by0-rr,rr*2,rr*2);
   }
-  q.globalCompositeOperation='destination-in';q.drawImage(mkc,0,0);q.globalCompositeOperation='source-over';
+  q.globalCompositeOperation='destination-in';q.drawImage(mkc,0,0);
+  {const ccx=bOX+AS*bS/2,ccy=bOY+AS*bS/2,cr=AS*bS/2,rg=q.createRadialGradient(ccx,ccy,cr*.9,ccx,ccy,cr*1.03);   // round off the square corners with a soft edge
+   rg.addColorStop(0,'rgba(0,0,0,1)');rg.addColorStop(1,'rgba(0,0,0,0)');q.fillStyle=rg;q.fillRect(0,0,W,H);}
+  q.globalCompositeOperation='source-over';
   g.globalCompositeOperation='source-over';g.fillStyle='#030508';g.fillRect(0,0,W,H);g.drawImage(tmpc,0,0);
   // 2) tone down + black vignette so the coin leads and the edges stay black
   g.fillStyle='rgba(2,6,10,0.16)';g.fillRect(0,0,W,H);
@@ -1572,7 +1592,6 @@ loadEl.addEventListener('click',enter);   // 'click' (not pointerdown) is what b
 loadEl.addEventListener('touchend',e=>{e.preventDefault();enter();});
 document.addEventListener('keydown',()=>{if(!entered)enter();});
 const stV=$('sting'),stillEl=$('still'),gmEl=$('gm'),tapEl=$('tap'),stageEl=$('stage');
-stillEl.classList.add('on');gmEl.classList.add('on');          // logo + left-to-right gleam are visible from the first frame
 // the logo flies across the whole screen on the beat of the whooshes, then lands dead centre
 const FLY=[[0,-.75,-.5,.3,-80,-35],[.58,.32,.28,1.6,35,14],[1.3,-.4,.34,.7,-45,-10],[2.0,.38,-.34,1.8,60,18],[2.55,-.18,-.14,1.25,-25,-6],[2.96,0,0,1,0,0]];
 const FEND=2.96,FALL=3.5;let fT0=0,flyDone=false;
@@ -1600,7 +1619,6 @@ function flyFrame(now){
   stageEl.style.filter=blur>.4?'blur('+blur.toFixed(1)+'px) brightness('+(1+blur*.05).toFixed(2)+')':'';
   requestAnimationFrame(flyFrame);
 }
-stageEl.style.transform='translate(-110vw,-90vh) scale(.25)';
 let fI0=0;
 function idleFrame(now){      // keeps the 3D feel while waiting for the tap
   if(entered)return;
@@ -1609,15 +1627,16 @@ function idleFrame(now){      // keeps the 3D feel while waiting for the tap
   requestAnimationFrame(idleFrame);
 }
 function startFly(){if(fT0)return;fT0=performance.now();requestAnimationFrame(flyFrame);}
-stV.addEventListener('playing',startFly);setTimeout(startFly,700);
+
 let stDone=false;
 function stingDone(){
   if(stDone)return;stDone=true;
+  stillEl.classList.add('on');stV.classList.add('off');gmEl.classList.add('on');
   
   tapEl.style.display='flex';requestAnimationFrame(()=>tapEl.classList.add('on'));
 }
 stV.addEventListener('ended',stingDone);stV.addEventListener('error',stingDone);
-setTimeout(stingDone,6000);                       // fallback if the video can't autoplay
+setTimeout(stingDone,5200);                       // fallback if the video can't autoplay
 // try with sound first (whooshes baked in); browsers only allow that after the visitor has interacted with the site, otherwise play silent
 function playMuted(){stV.muted=true;try{const p2=stV.play();if(p2&&p2.catch)p2.catch(()=>setTimeout(stingDone,350));}catch(e){setTimeout(stingDone,350);}}
 try{stV.muted=false;const pr=stV.play();if(pr&&pr.catch)pr.catch(playMuted);}catch(e){playMuted();}
