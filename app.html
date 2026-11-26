@@ -311,6 +311,15 @@ canvas#bg{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;
 #qrcap{color:#04130c;font-size:12px;font-weight:600;margin:10px 0 8px}
 #qrdl,#qrx{display:inline-block;margin:0 4px;padding:8px 14px;border-radius:18px;border:1px solid #0b7a45;background:#0b7a45;color:#fff;font:600 11px 'Space Grotesk',sans-serif;text-decoration:none;cursor:pointer}
 #qrx{background:#fff;color:#0b7a45}
+#ui{display:grid!important;grid-template-columns:repeat(3,1fr);gap:6px;max-width:440px;margin:0 auto;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:720px){#ui{grid-template-columns:repeat(6,1fr);max-width:640px}}
+.pp{text-align:center;font-size:10px!important;padding:9px 4px!important;white-space:nowrap}
+#tabs{justify-content:center;gap:5px;overflow:visible}
+.tab{flex:1 1 0!important;max-width:104px;text-align:center;font-size:9px!important;letter-spacing:.05em!important;padding:8px 2px!important;white-space:nowrap}
+.tab:first-child{margin-left:0!important}.tab:last-child{margin-right:0!important}
+#mute,#qrbtn{width:32px!important;height:32px!important;padding:0!important;border-radius:50%!important;display:flex;align-items:center;justify-content:center;font-size:11px}
+#qrbtn{font:700 9px 'Space Grotesk',sans-serif!important;letter-spacing:.04em;right:calc(max(12px,env(safe-area-inset-right,0px)) + 40px)!important}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -336,7 +345,7 @@ canvas#bg{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;
 <div id="qrbox"><div id="qrcard"><img src="qr.png" alt="QR code for the MATASON site"><div id="qrcap">Scan to open the MATASON site</div><a id="qrdl" href="qr.png" download="MATASON-QR.png">Download QR</a><button id="qrx">Close</button></div></div>
 <button id="mute" class="dis" aria-label="Toggle music">♪</button>
 <div id="tabs" class="dis"><button class="tab" data-x="0">Overview</button><button class="tab" data-x="1">Credits</button><button class="tab" data-x="2">Birth</button><button class="tab" data-x="3">3 Locks</button><button class="tab" data-x="4">Roles</button></div>
-<div id="xp"><div id="xp-scan"></div><div id="xp-scroll"><div id="xp-body"></div></div><button id="xp-back">&larr; Back to the coin</button></div>
+<div id="xp"><div id="xp-scan"></div><div id="xp-scroll"><div id="xp-body"></div></div><button id="xp-back">&larr; Back</button></div>
 <div id="ui">
   <div class="pp dis" data-p="0">Tokenize</div>
   <div class="pp dis" data-p="1">Release</div>
@@ -1138,15 +1147,7 @@ function bgDraw(t){
   const W=bW,H=bH,g=bx,q=tx,tt=t-1.2;
   // 1) artwork through a gentle flow distortion: strongest over the water at the bottom
   q.globalCompositeOperation='source-over';q.clearRect(0,0,W,H);
-  const strip=Math.max(4,Math.round(6*bDPR)),waterY=bOY+AS*bS*0.80;
-  const slow=Math.sin(t*0.07)*0.012;
-  q.save();q.translate(W/2,H/2);q.scale(1.04+slow,1.04+slow);q.translate(-W/2+Math.sin(t*0.11)*5*bDPR,-H/2+Math.cos(t*0.09)*4*bDPR);
-  for(let y=0;y<H;y+=strip){
-    const wy=clamp((y-waterY)/(H-waterY+1),0,1),amp=(0.7+9*Math.pow(wy,1.1))*bDPR;
-    const dx=Math.sin(y*0.045/bDPR+t*(1.2+2.2*wy))*amp+Math.sin(y*0.013/bDPR-t*0.7)*amp*0.6;
-    q.drawImage(cov,0,y,W,strip,dx,y,W,strip+0.6);
-  }
-  q.restore();
+  q.drawImage(cov,0,0);
   // reveal mask: each element of the artwork rises slowly out of the black, the rest stays black
   mx.globalCompositeOperation='source-over';mx.clearRect(0,0,W,H);mx.globalCompositeOperation='lighter';
   for(const b of REVEAL){
@@ -1172,13 +1173,6 @@ function bgDraw(t){
     const gr=g.createLinearGradient(0,y0-len,0,y0);gr.addColorStop(0,'rgba(120,230,255,0)');gr.addColorStop(1,'rgba(190,245,255,'+a.toFixed(3)+')');
     g.fillStyle=gr;g.fillRect(fx,y0-len,(2+(k%3))*bDPR,len);
   }
-  for(let k=0;k<7;k++){ // slow shimmering ripple lines across the water
-    const yy=H-(k*0.045+0.02+((t*0.015+k*0.31)%0.05))*H*1.0,al=0.05+0.04*Math.sin(t*1.3+k*1.7);
-    g.strokeStyle='rgba(170,240,255,'+al.toFixed(3)+')';g.lineWidth=1.2*bDPR;g.beginPath();
-    for(let x=0;x<=W;x+=14*bDPR){const y=yy+Math.sin(x*0.02/bDPR+t*(1.4+k*.3)+k)*3*bDPR;x?g.lineTo(x,y):g.moveTo(x,y);}
-    g.stroke();
-  }
-  g.globalAlpha=ss(1.2,4,tt);
   // 4) gleam coming from the earth: pulsing core, turning rays, outgoing ring pulses
   const [gx,gy]=A2S(GLOBE.x,GLOBE.y),gr0=GLOBE.r*bS,pulse=0.5+0.5*Math.sin(t*1.7),bs=bassS||0;
   let rg=g.createRadialGradient(gx,gy,gr0*0.1,gx,gy,gr0*(2.1+0.5*pulse));
