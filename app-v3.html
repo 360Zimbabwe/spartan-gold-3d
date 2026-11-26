@@ -281,7 +281,8 @@ canvas#c{display:block;width:100%;height:100%}
 canvas#bg{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;background:#030508}
 #wrap{z-index:1}
 #loading{background:#030508}
-#stage{position:relative;width:min(96vw,72vh*.75,560px);aspect-ratio:3/4;margin:0 auto}
+#loading{--sw:min(115vw,138vh)}
+#stage{position:relative;width:var(--sw);aspect-ratio:3/4;margin:0 auto;flex:none}
 #stage video,#stage img.still{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;transition:opacity .5s ease}
 #stage video{mix-blend-mode:screen;opacity:0!important}
 #loading{overflow:hidden;perspective:900px}
@@ -289,6 +290,10 @@ canvas#bg{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;
 #stage video.off{opacity:0;transition-delay:.35s}
 #stage img.still{opacity:0}
 #stage img.still.on{opacity:1}
+#stage img.still{filter:
+ drop-shadow(0 calc(var(--sw)*.0014) 0 #56616b) drop-shadow(0 calc(var(--sw)*.0028) 0 #444d56) drop-shadow(0 calc(var(--sw)*.0042) 0 #343b43)
+ drop-shadow(0 calc(var(--sw)*.0056) 0 #252b32) drop-shadow(0 calc(var(--sw)*.007) 0 #181d22) drop-shadow(0 calc(var(--sw)*.0085) 0 #0d1014)
+ drop-shadow(0 calc(var(--sw)*.03) calc(var(--sw)*.02) rgba(0,0,0,.85)) drop-shadow(0 0 calc(var(--sw)*.05) rgba(140,200,255,.16))}
 .gm{position:absolute;inset:0;overflow:hidden;pointer-events:none;opacity:0;
   -webkit-mask:url(logo_720.webp) center/100% 100% no-repeat;mask:url(logo_720.webp) center/100% 100% no-repeat}
 .gm.on{opacity:1}
@@ -296,7 +301,7 @@ canvas#bg{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.55) 35%,#fff 50%,rgba(255,255,255,.55) 65%,transparent);mix-blend-mode:plus-lighter}
 .gm.on i{animation:gleamX 2.7s cubic-bezier(.45,.05,.3,1) .1s infinite}
 @keyframes gleamX{0%{transform:translateX(-140%) skewX(-18deg)}55%,100%{transform:translateX(480%) skewX(-18deg)}}
-#tap{position:absolute;left:0;right:0;top:77%;margin:0;z-index:3;opacity:0;transition:opacity .9s ease}
+#tap{position:fixed;left:0;right:0;top:min(calc(50% + var(--sw)*.30),calc(100% - 52px));margin:0;z-index:3;opacity:0;transition:opacity .9s ease}
 #tap.on{opacity:1}
 #logo-overlay .tl{position:relative;width:clamp(130px,34vw,200px);margin:0 auto;aspect-ratio:var(--ar,2.98)}
 #logo-overlay .tl img{position:absolute;inset:0;width:100%;height:100%;display:block;filter:drop-shadow(0 0 calc(5px + var(--bass,0)*10px) rgba(120,255,190,.4))}
@@ -342,8 +347,7 @@ canvas#bg{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;
   <video id="sting" playsinline preload="auto" poster="logo_720.webp" src="sting.mp4"></video>
   <img id="still" class="still" src="logo_720.webp" alt="MATASON BlockSol">
   <div class="gm" id="gm"><i></i></div>
-  <div id="tap">TAP TO ENTER<span>sound on</span></div>
-</div></div>
+</div><div id="tap">TAP TO ENTER<span>sound on</span></div></div>
 <canvas id="bg"></canvas>
 <div id="wrap"><canvas id="c"></canvas></div>
 <div id="logo-overlay" class="dis">
@@ -1549,7 +1553,7 @@ function flyAt(t){
 function flyFrame(now){
   if(flyDone||entered)return;
   const t=(now-fT0)/1000;
-  if(t>=FALL){stageEl.style.transform='';stageEl.style.filter='';flyDone=true;stingDone();return;}
+  if(t>=FALL){stageEl.style.transform='';stageEl.style.filter='';flyDone=true;stingDone();fI0=now;requestAnimationFrame(idleFrame);return;}
   let x,y,sc,ry,rz,blur=0;
   if(t<FEND){
     [x,y,sc,ry,rz]=flyAt(t);
@@ -1564,6 +1568,13 @@ function flyFrame(now){
   requestAnimationFrame(flyFrame);
 }
 stageEl.style.transform='translate(-110vw,-90vh) scale(.25)';
+let fI0=0;
+function idleFrame(now){      // keeps the 3D feel while waiting for the tap
+  if(entered)return;
+  const k=(now-fI0)/1000;
+  stageEl.style.transform='rotateX('+(3.2*Math.cos(k*.8)).toFixed(2)+'deg) rotateY('+(8*Math.sin(k*.9)).toFixed(2)+'deg) scale('+(1+.012*Math.sin(k*1.3)).toFixed(4)+')';
+  requestAnimationFrame(idleFrame);
+}
 function startFly(){if(fT0)return;fT0=performance.now();requestAnimationFrame(flyFrame);}
 stV.addEventListener('playing',startFly);setTimeout(startFly,700);
 let stDone=false;
