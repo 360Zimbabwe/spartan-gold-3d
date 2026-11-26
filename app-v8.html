@@ -340,7 +340,12 @@ canvas#bg{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;
 #xp-body .xc .tg,#xp-body .xj .lk{font-size:10.5px}
 #xp-body{max-width:620px}
 /* bigger top logo, tabs moved clear below it, larger buttons, everything in capitals */
-:root{--lw:clamp(170px,50vw,230px)}
+:root{--lw:clamp(210px,60vw,330px)}
+#logo-overlay{text-align:left!important;padding-left:var(--logoL,14px)!important;top:max(10px,env(safe-area-inset-top,0px))!important}
+#logo-overlay .tl{margin:0!important}
+#sb-head{font-size:clamp(15px,4.2vw,19px)!important;margin-bottom:8px!important}
+#sb-text{font-size:clamp(15px,4.2vw,19px)!important;line-height:1.55!important}
+#step-box{min-height:132px!important;padding:12px 16px 14px 18px!important}
 /* write-ups: a clear black band under the tabs; the text starts below it and fades out before it reaches the tabs */
 #xp::before{height:calc(env(safe-area-inset-top,0px) + 142px)!important;background:linear-gradient(#020507 calc(100% - 48px),rgba(2,5,7,0))!important}
 #xp-scroll{padding-top:calc(env(safe-area-inset-top,0px) + 168px)!important}
@@ -348,6 +353,22 @@ body:has(#xp.open) #tabs{top:calc(env(safe-area-inset-top,0px) + 60px)!important
 body:has(#xp.open) .tab{font-size:clamp(9.5px,2.6vw,13px)!important;padding:13px 0!important}
 #step-box{top:var(--sbTop,auto)!important;bottom:var(--sbBottom,150px)!important;left:var(--sbLeft,14px)!important;right:var(--sbRight,14px)!important;width:var(--sbW,auto)!important;min-height:98px!important;z-index:12!important}
 #coin-labels{display:none!important}
+.hs{position:fixed;z-index:20;border-radius:50%;border:2px solid rgba(125,255,190,.0);background:rgba(125,255,190,0);padding:0;cursor:pointer;opacity:0;pointer-events:none;transform:translate(-50%,-50%);
+ transition:opacity 1.2s ease,border-color .25s,background .25s,box-shadow .25s,transform .25s;-webkit-tap-highlight-color:transparent}
+.hs.in{opacity:1;pointer-events:auto}
+.hs::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:2px solid rgba(125,255,190,.75);opacity:0;animation:hsPulse 3.2s ease-out infinite}
+.hs:nth-of-type(2)::after{animation-delay:.5s}.hs:nth-of-type(3)::after{animation-delay:1s}.hs:nth-of-type(4)::after{animation-delay:1.5s}.hs:nth-of-type(5)::after{animation-delay:2s}.hs:nth-of-type(6)::after{animation-delay:2.5s}
+@keyframes hsPulse{0%{transform:scale(.92);opacity:.0}15%{opacity:.8}100%{transform:scale(1.35);opacity:0}}
+.hs:hover,.hs:focus-visible{border-color:#7dffbb;background:rgba(125,255,190,.14);box-shadow:0 0 22px 4px rgba(90,255,170,.55),inset 0 0 18px rgba(125,255,190,.35);transform:translate(-50%,-50%) scale(1.08);outline:none}
+.hs:hover::before,.hs:focus-visible::before{content:attr(data-l);position:absolute;left:50%;top:calc(100% + 8px);transform:translateX(-50%);white-space:nowrap;font:700 11px 'Space Grotesk',sans-serif;letter-spacing:.1em;color:#04130c;background:#7dffbb;padding:5px 9px;border-radius:12px;box-shadow:0 0 14px rgba(90,255,170,.6)}
+body:has(#xp.open) .hs{display:none}
+/* rollover: every button lifts, lights up and shows it can be pressed */
+.pp,.tab,#qrbtn,#mute,#xp-back,#qrdl,#qrx{cursor:pointer;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease,background .22s ease,color .22s ease!important}
+.pp:hover,.pp:focus-visible{transform:translateY(-3px) scale(1.06);border-color:#f0d060!important;color:#fff2b8!important;background:rgba(212,168,48,.22)!important;box-shadow:0 0 22px 3px rgba(240,200,60,.55)!important}
+.tab:hover,.tab:focus-visible{transform:translateY(-2px) scale(1.08);border-color:#7dffbb!important;color:#fff!important;background:rgba(56,217,128,.28)!important;box-shadow:0 0 20px 3px rgba(90,255,170,.6)!important}
+#qrbtn:hover,#mute:hover,#xp-back:hover{transform:scale(1.12);border-color:#f0d060!important;box-shadow:0 0 18px 3px rgba(240,200,60,.55)}
+#xp-back:hover{transform:translateX(-50%) scale(1.08)}
+.pp:active,.tab:active{transform:scale(.97)}
 body{text-transform:uppercase}
 #logo-overlay .tl{width:var(--lw)!important}
 #tabs{top:var(--tabTop,110px)!important;left:var(--tabLeft,10px)!important;right:auto!important;width:var(--tabW,360px)!important;gap:3px!important;padding:0!important;overflow:visible!important}
@@ -381,7 +402,7 @@ body{text-transform:uppercase}
 <div id="qrbox"><div id="qrcard"><img src="qr.png" alt="QR code for the MATASON site"><div id="qrcap">Scan to open the MATASON site</div><a id="qrdl" href="qr.png" download="MATASON-QR.png">Download QR</a><button id="qrx">Close</button></div></div>
 <button id="mute" class="dis" aria-label="Toggle music">♪</button>
 <div id="tabs" class="dis"><button class="tab" data-x="0">Overview</button><button class="tab" data-x="1">Credits</button><button class="tab" data-x="2">Birth</button><button class="tab" data-x="3">3 Locks</button><button class="tab" data-x="4">Roles</button></div>
-<div id="xp"><div id="xp-scan"></div><div id="xp-scroll"><div id="xp-body"></div></div><button id="xp-back">&larr; Back</button></div>
+<button class="hs" data-p="5" data-x="88" data-y="392" data-l="Carbon capture" aria-label="Carbon capture: tap for details"></button><button class="hs" data-p="6" data-x="86" data-y="537" data-l="Carbon credits" aria-label="Carbon credits: tap for details"></button><button class="hs" data-p="7" data-x="112" data-y="665" data-l="Carbon trading" aria-label="Carbon trading: tap for details"></button><button class="hs" data-p="8" data-x="950" data-y="405" data-l="Net zero future" aria-label="Net zero future: tap for details"></button><button class="hs" data-p="9" data-x="946" data-y="545" data-l="Circular economy" aria-label="Circular economy: tap for details"></button><button class="hs" data-p="10" data-x="938" data-y="678" data-l="Forest conservation" aria-label="Forest conservation: tap for details"></button><div id="xp"><div id="xp-scan"></div><div id="xp-scroll"><div id="xp-body"></div></div><button id="xp-back">&larr; Back</button></div>
 <div id="ui">
   <div class="pp dis" data-p="0">Tokenize</div>
   <div class="pp dis" data-p="1">Release</div>
@@ -647,7 +668,7 @@ function haloTex(hex){
 function pressTex(hex){
   const N=1024,c=document.createElement('canvas');c.width=c.height=N;const x=c.getContext('2d');
   const col=new THREE.Color(hex).lerp(new THREE.Color(0xffffff),0.55),fill='rgb('+Math.round(col.r*255)+','+Math.round(col.g*255)+','+Math.round(col.b*255)+')';
-  const RT=440,FS=58;
+  const RT=400,FS=112;
   x.font='700 '+FS+"px 'Space Grotesk','Arial Black',Arial,sans-serif";x.textAlign='left';x.textBaseline='alphabetic';x.lineJoin='round';
   const unit='PRESS ME  •  ',unitW=[...unit].reduce((s,ch)=>s+x.measureText(ch).width,0);
   const reps=Math.max(3,Math.round(TAU*RT/unitW)),chars=[...unit.repeat(reps)];
@@ -657,8 +678,8 @@ function pressTex(hex){
     const w=ws[k]+extra,mid=ang+w/2/RT;ang+=w/RT;
     if(ch===' ')return;
     x.save();x.translate(N/2,N/2);x.rotate(mid);
-    x.strokeStyle='rgba(0,0,0,0.92)';x.lineWidth=13;x.strokeText(ch,-ws[k]/2,-RT);
-    x.shadowColor=hex;x.shadowBlur=14;x.fillStyle=fill;x.fillText(ch,-ws[k]/2,-RT);
+    x.strokeStyle='rgba(0,0,0,0.92)';x.lineWidth=24;x.strokeText(ch,-ws[k]/2,-RT);
+    x.shadowColor=hex;x.shadowBlur=24;x.fillStyle=fill;x.fillText(ch,-ws[k]/2,-RT);
     x.restore();
   });
   return mkTex(c);
@@ -672,7 +693,7 @@ const coinFx=COIN_DEFS.map((d,i)=>{
   const halo=mk(haloTex(d.hexColor),FXS*1.45,-0.7,12,THREE.AdditiveBlending);
   const ring=mk(arcTex(d.hexColor),FXS,0,15,THREE.AdditiveBlending);
   const blaze=mk(arcTex(d.hexColor),FXS*1.12,0.02,16,THREE.AdditiveBlending);
-  const txt=mk(pressTex(d.hexColor),3.52,0.04,17,THREE.NormalBlending);
+  const txt=mk(pressTex(d.hexColor),4.3,0.04,17,THREE.NormalBlending);
   return {grp,halo,ring,blaze,txt,spin:-i*1.7,ff:0};
 });
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{coinFx.forEach((f,i)=>{const old=f.txt.material.map;f.txt.material.map=pressTex(COIN_DEFS[i].hexColor);f.txt.material.needsUpdate=true;old.dispose();});});
@@ -741,6 +762,14 @@ function onPointerDown(e){
   }
 }
 canvas.addEventListener('pointerdown',onPointerDown);
+let coinHov=false,coinHovK=0;
+canvas.addEventListener('pointermove',e=>{
+  if(selectedCoin>=0||e.pointerType==='touch'){return;}
+  const rc=canvas.getBoundingClientRect();mouse.x=((e.clientX-rc.left)/rc.width)*2-1;mouse.y=-((e.clientY-rc.top)/rc.height)*2+1;
+  raycaster.setFromCamera(mouse,camera);let h=false;for(let i=0;i<coins.length;i++){if(raycaster.intersectObject(coins[i],true).length){h=true;break;}}
+  coinHov=h;canvas.style.cursor=h?'pointer':'';
+});
+canvas.addEventListener('pointerleave',()=>{coinHov=false;canvas.style.cursor='';});
 canvas.addEventListener('touchstart',onPointerDown,{passive:true});
 
 // ── Digital rain background ────────────────────────────────────────
@@ -1097,7 +1126,7 @@ function animate(ts){
   logoMesh.position.y=5.8+Math.sin(t*0.35)*0.08;
   logoMesh.lookAt(camera.position);
 
-  const asp=innerWidth/innerHeight,minV=Math.min(7.68*asp,7.68),fitS=0.46*artPx()/innerHeight;
+  const asp=innerWidth/innerHeight,minV=Math.min(7.68*asp,7.68),fitS=0.5*artPx()/innerHeight;
   coins.forEach((coin,i)=>{
     const rv=ss(0.3,2.2,et);
     if(selectedCoin===i){
@@ -1114,11 +1143,11 @@ function animate(ts){
       const cyW=(0.5-chestPx()/innerHeight)*7.68,cxW=(chestXPx()/innerWidth-0.5)*7.68*asp;
       coin.position.lerp(new THREE.Vector3(cxW,cyW+0.04*Math.sin(et*0.8),0),0.12);
       coin.rotation.set(0.05*Math.sin(et*0.6),Math.sin(et*0.9)*0.38,0);
-      const sc=fitS*(1+0.02*Math.sin(et*1.6)+bassS*0.04)*rv;
+      coinHovK+=((coinHov?1:0)-coinHovK)*0.12;const sc=fitS*(1+0.02*Math.sin(et*1.6)+bassS*0.04+0.16*coinHovK)*rv;
       coin.scale.setScalar(Math.max(0.0001,coin.scale.x+(sc-coin.scale.x)*(selectedCoin<0&&coin.scale.x>0.3?0.2:1)));
       coinFx[i].ff=1;
       coinLights[i].position.set(0,coin.position.y+0.5,2.8);
-      coinLights[i].intensity=(1.4+0.5*Math.sin(et*2))*rv+bassS*1.0;
+      coinLights[i].intensity=(1.4+0.5*Math.sin(et*2)+3*coinHovK)*rv+bassS*1.0;
       const gp=(et%5.5)/0.9;
       if(gp<1&&rv>0.95){
         glintMeshes[i].position.set(coin.position.x,coin.position.y,coin.position.z+0.3*coin.scale.x);
@@ -1169,14 +1198,16 @@ function bgResize(){
   {const lo=document.getElementById('logo-overlay'),ui=document.getElementById('ui');
   let topR=lo?lo.getBoundingClientRect().bottom+10:100;if(!(topR>40))topR=100;
   let botR=ui&&ui.offsetHeight>0?innerHeight-ui.getBoundingClientRect().top+10:110;if(!(botR>40))botR=110;
-  const wide=innerWidth>=900&&innerWidth>innerHeight*1.25,uiBot=botR;if(!wide)botR+=112;   // phones: leave room for the caption box between the circle and the buttons
+  const wide=innerWidth>=900&&innerWidth>innerHeight*1.25,uiBot=botR;if(!wide)botR+=156;   // phones: leave room for the caption box between the circle and the buttons
   const avail=Math.max(200,innerHeight-topR-botR),sz=Math.min(innerWidth,avail)*bDPR;
   bS=sz/AS;bOX=(bW-sz)/2;bOY=topR*bDPR+(avail*bDPR-sz)/2;
   const rs=document.documentElement.style,css=sz/bDPR,tw=Math.min(css*.7,Math.max(css*.56,236));
   rs.setProperty('--tabTop',(bOY/bDPR+css*.165).toFixed(1)+'px');rs.setProperty('--tabLeft',((innerWidth-tw)/2).toFixed(1)+'px');
   rs.setProperty('--tabW',tw.toFixed(1)+'px');
+  rs.setProperty('--logoL',Math.max(12,bOX/bDPR+css*.02).toFixed(1)+'px');
+  {const hd=css*.135,ox2=bOX/bDPR,oy2=bOY/bDPR;document.querySelectorAll('.hs').forEach(h=>{h.style.left=(ox2+h.dataset.x/1024*css).toFixed(1)+'px';h.style.top=(oy2+h.dataset.y/1024*css).toFixed(1)+'px';h.style.width=h.style.height=hd.toFixed(1)+'px';});}
   {const tb=document.getElementById('tabs');rs.setProperty('--xpTop',Math.round((tb?tb.getBoundingClientRect().bottom:200)+30)+'px');}
-  if(wide){rs.setProperty('--sbTop',(bOY/bDPR+css*.3).toFixed(1)+'px');rs.setProperty('--sbBottom','auto');rs.setProperty('--sbLeft','24px');rs.setProperty('--sbRight','auto');rs.setProperty('--sbW',Math.max(220,Math.min(360,(innerWidth-css)/2-40)).toFixed(0)+'px');}
+  if(wide){rs.setProperty('--sbTop',(bOY/bDPR+css*.3).toFixed(1)+'px');rs.setProperty('--sbBottom','auto');rs.setProperty('--sbLeft','24px');rs.setProperty('--sbRight','auto');rs.setProperty('--sbW',Math.max(240,Math.min(420,(innerWidth-css)/2-36)).toFixed(0)+'px');}
   else{rs.setProperty('--sbTop','auto');rs.setProperty('--sbBottom',(uiBot-2).toFixed(1)+'px');rs.setProperty('--sbLeft','14px');rs.setProperty('--sbRight','14px');rs.setProperty('--sbW','auto');}
   rs.setProperty('--tabFs',Math.max(7.4,Math.min(12,tw/5/6.7)).toFixed(1)+'px');}
   cov=document.createElement('canvas');cov.width=bW;cov.height=bH;cx2=cov.getContext('2d');
@@ -1226,13 +1257,11 @@ function bgDraw(t){
     mx.fillStyle=rg2;mx.fillRect(bx0-rr,by0-rr,rr*2,rr*2);
   }
   q.globalCompositeOperation='destination-in';q.drawImage(mkc,0,0);
-  {const ccx=bOX+AS*bS/2,ccy=bOY+AS*bS/2,cr=AS*bS/2,rg=q.createRadialGradient(ccx,ccy,cr*.9,ccx,ccy,cr*1.03);   // round off the square corners with a soft edge
-   rg.addColorStop(0,'rgba(0,0,0,1)');rg.addColorStop(1,'rgba(0,0,0,0)');q.fillStyle=rg;q.fillRect(0,0,W,H);}
   q.globalCompositeOperation='source-over';
   g.globalCompositeOperation='source-over';g.fillStyle='#030508';g.fillRect(0,0,W,H);g.drawImage(tmpc,0,0);
   // 2) tone down + black vignette so the coin leads and the edges stay black
   g.fillStyle='rgba(2,6,10,0.16)';g.fillRect(0,0,W,H);
-  const vg=g.createRadialGradient(W/2,H*0.52,Math.min(W,H)*0.25,W/2,H*0.52,Math.max(W,H)*0.72);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,'+(0.9-0.62*ss(9,15,tt)).toFixed(3)+')');
+  const vg=g.createRadialGradient(W/2,H*0.52,Math.min(W,H)*0.25,W/2,H*0.52,Math.max(W,H)*0.72);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,'+(0.9-0.9*ss(9,15,tt)).toFixed(3)+')');
   g.fillStyle=vg;g.fillRect(0,0,W,H);
   // 3) flowing water light: slanted streaks sliding down the lower scene and the waterfall
   g.globalCompositeOperation='lighter';g.globalAlpha=ss(6.2,10,tt);
@@ -1492,6 +1521,62 @@ ins(4,4,ig16());ins(4,1,ig15());
 return applyIG;
 })();
 applyIG(XPAGES);
+const MPF='<div class="xfoot">Drawn from the Matason BlockSol investor whitepaper (v7.0). Design intent, timelines and modelled figures are subject to methodology approval, regulatory admission and independent verification. This is not an offer of securities.</div>';
+const TG=a=>'<div class="xg g1" style="margin-top:9px"><div class="xc"><span class="s">'+a.map(t=>'<span class="tg" style="margin:0 4px 4px 0">'+t+'</span>').join('')+'</span></div></div>';
+XPAGES.push(
+ // 6 · Carbon capture
+ [
+  '<div class="xk">Round 1 &middot; Carbon capture</div><div class="xt">Carbon capture and avoided action</div><div class="xl">Everything starts with a real action on the ground that keeps carbon out of the air or takes it out. The whitepaper calls it a <b style="color:#f0d060">Carbon Avoided Action</b>: a documented activity that prevents or removes emissions, measured by an independent verifier before any token exists.</div>',
+  '<div class="xh">Two families of climate action</div><div class="xg">'+C('Physical actions','Clean cooking, fuel switching, afforestation and waste-to-energy, following established registry methodologies.')+C('Digital substitution','Emissions avoided when a payment, statement, letter or branch visit moves from paper or travel to a digital channel.')+'</div>',
+  '<div class="xh">Where the physical credits come from</div><div class="xj">'+J(1,'LPG stoves and cylinders','Clean cooking that avoids biomass deforestation. The fastest source: first credits in about 12 to 18 months.')+J(2,'Waste-to-energy','A 22 MW plant taking 1,000 tonnes of waste a day, with a 30-year offtake. First credits in year 2 to 3.')+J(3,'Autogas conversion','Petrol, hybrid and diesel engines converted to LPG, about 15% less CO&#8322; than petrol. 12 to 24 months.')+J(4,'Cactus afforestation','Opuntia planted under the Lake City programme on land recruited in Mashonaland. The long game: year 7 to 10.')+'</div>',
+  '<div class="xq"><b>Fast and slow, on purpose.</b> Fast sources supply retirements now. Slow sequestration sources give long-dated credibility. Together they balance speed against permanence.</div>',
+  MPF
+ ],
+ // 7 · Carbon credits
+ [
+  '<div class="xk">Round 2 &middot; Carbon credits</div><div class="xt">Credits that are used up for good</div><div class="xl">In this system a carbon credit is not just bought, it is <b style="color:#f0d060">retired</b>. Retirement is a one-way door: the climate benefit is spent for good and its record cannot back anything else. The whitepaper calls this the Burial Principle.</div>',
+  '<div class="xh">The path of a credit</div><div class="xj">'+J(1,'Registered','The project or digital-substitution activity is registered against an approved methodology.')+J(2,'Verified','An independent verifying body measures the avoided or removed emissions.')+J(3,'Certified and retired','The Zimbabwe Carbon Registry (ZCR), supervised by the Zimbabwe Carbon Markets Authority (ZiCMA), records the retirement and issues the certificate.','Lock 1')+J(4,'Vaulted','The record is stored in the Green Vault, which logs the type, price, quantity and tonnage.','Lock 2')+'</div>',
+  '<div class="xh">The Asset Deposit Note</div><div class="xq">Retirement record plus transaction hash equals the <b>Asset Deposit Note (ADN)</b>. One ADN backs one token. It is the backing itself, not a party to any transaction.</div>',
+  '<div class="xh">Why it matters</div><div class="xg g3">'+ST('~28%','discount on Zimbabwe-origin credits today: a transparency discount')+ST('1 ADN','backs exactly 1 token')+ST('Never','reused: a retired credit cannot back anything else')+'</div>',
+  '<div class="xl" style="margin-top:14px">Zimbabwe has put a carbon-registry framework into law (S.I. 48 of 2025), giving retirement a legal anchor.</div>',
+  MPF
+ ],
+ // 8 · Carbon trading
+ [
+  '<div class="xk">Round 3 &middot; Carbon trading</div><div class="xt">Trading what is proven</div><div class="xl">Once a token exists it needs somewhere to live and trade. Matason BlockSol is building <b style="color:#f0d060">ABTE</b>, the Asset Backed Token Exchange, which lists the token and other tokenized real-world assets under the tagline &ldquo;No Nonsense. Asset Backed.&rdquo;</div>',
+  '<div class="xh">Built to be trusted</div><div class="xg">'+C('Permissioned ledger','Participation is by invitation. Validators are known and every transaction is attributable.')+C('Fixed supply','Capped at 10 billion and never increased. The release rate falls by a quarter at every tier.')+C('One pricing method','Net asset value per token: cumulative retired value divided by cumulative tokens minted. No per-token price is asserted.')+C('Premium Grade Assets','Blockchain-certified retirement receipts held in the Green Vault as tokens.')+'</div>',
+  '<div class="xh">Fees at each step</div><div class="xl">Vaulting, tokenization, listing, trading and transfers each carry a fee. Levels are indicative and subject to the regulatory fee stack.</div>',
+  '<div class="xq"><b>Read this plainly.</b> The token is not yield-bearing and carries no revenue share for holders. It is positioned as a scarcity-and-compliance reserve unit, not a promise of returns.</div>',
+  MPF
+ ],
+ // 9 · Net zero future
+ [
+  '<div class="xk">Round 4 &middot; Net zero future</div><div class="xt">Retired proof for net-zero goals</div><div class="xl">Governments and companies that have promised to reach net zero need retirements they can prove. The token arrives <b style="color:#f0d060">pre-retired</b>, so the proof is already there.</div>',
+  '<div class="xh">Three kinds of demand</div><div class="xg">'+C('Compliance demand','Entities with mandatory retirement obligations: national contribution targets, carbon taxes and net-zero mandates.')+C('Cost to investment','Organizations already spending on offsets can redirect that spend into a scarce reserve unit instead of an expense that disappears.')+C('Reserve-asset holders','Holders seeking a scarcity-and-compliance asset with a gold-style profile, sized as a small satellite allocation.')+'</div>',
+  '<div class="xh">Why Africa, why digital</div><div class="xl">Mobile money, bank apps and SMS now carry volumes that once needed branches, paper and travel. The digital-substitution family turns that shift into a verified, repeatable supply of climate value.</div>',
+  '<div class="xq"><b>Sandbox first, licence second.</b> Zimbabwe has put a carbon-registry framework into law (S.I. 48 of 2025) and a virtual-asset registration regime (S.I. 99 of 2026). Admission to a controlled regulatory test environment is the route to market.</div>',
+  '<div class="xl" style="margin-top:14px">Demand depth is still to be proven, and the whitepaper says so plainly.</div>',
+  MPF
+ ],
+ // 10 · Circular economy
+ [
+  '<div class="xk">Round 5 &middot; Circular economy</div><div class="xt">Nothing wasted, nothing counted twice</div><div class="xl">A circular economy keeps value in use. Here it shows up three ways: waste becomes energy, paper becomes data, and one retired climate action becomes one record that is never spent again.</div>',
+  '<div class="xh">How value stays in the loop</div><div class="xg">'+C('Waste to energy','A 22 MW plant processing 1,000 tonnes of waste a day under a 30-year offtake, with an avoided-emissions methodology.')+C('Paper to digital','Letters, statements, forms and branch trips move to SMS, e-mail and mobile money. About 100 million letters a year are carried by national post, with post offices all but shut.')+C('One pipeline, many assets','The same vault-and-tokenize machinery that serves carbon today can serve other real-world assets tomorrow.')+C('Retire once, record for good','Retirement takes the value out of circulation and leaves a record that cannot be reused.')+'</div>',
+  '<div class="xh">Five avoidance categories</div>'+TG(['Payments and money movement','Balance enquiries and statements','Branch and ATM visits','Banking paperwork','Letters and post']),
+  '<div class="xq"><b>Modelled, not promised.</b> The headline upside scenario of 810.6 kt comes from a modelled framework. It is subject to methodology approval and third-party verification.</div>',
+  MPF
+ ],
+ // 11 · Forest conservation
+ [
+  '<div class="xk">Round 6 &middot; Forest conservation</div><div class="xt">Protecting and growing trees</div><div class="xl">Forests are looked after two ways here: by taking pressure off them, and by planting more.</div>',
+  '<div class="xh">Less wood burned</div><div class="xg g1">'+C('LPG clean cooking','Stoves and cylinders replace open wood fires. The whitepaper counts this as avoiding biomass deforestation, and it is the highest-velocity source of credits.')+'</div>',
+  '<div class="xh">More trees and plants</div><div class="xg">'+C('Cactus (Opuntia) afforestation','The Lake City programme, with land recruited through contractors in Mashonaland.')+C('Permanence','Slow sequestration gives long-dated credibility. Patience is built in.')+'</div>',
+  '<div class="xg g3" style="margin-top:14px">'+ST('12 to 18','months to first credits from LPG stoves')+ST('84 to 120','months to first credits from cactus afforestation')+ST('Retired','before any token exists')+'</div>',
+  '<div class="xq"><b>Honest timing.</b> Afforestation has the longest lead time, up to a decade. That is why fast sources come first and slow sources add permanence later.</div>',
+  MPF
+ ]
+);
+
 const xp=$('xp'),xpBody=$('xp-body'),xpScroll=$('xp-scroll'),tabEls=[...document.querySelectorAll('.tab')];
 let xOpen=-1,xIO=null,xIdle=null;
 function xResetIdle(){clearTimeout(xIdle);}
@@ -1549,6 +1634,7 @@ function closeX(){
 }
 xpBody.style.transition='opacity .26s ease';
 tabEls.forEach((b,k)=>b.addEventListener('click',()=>openX(k)));
+document.querySelectorAll('.hs').forEach(h=>h.addEventListener('click',()=>openX(+h.dataset.p)));
 $('xp-back').addEventListener('click',closeX);
 ['touchstart','wheel','pointerdown'].forEach(ev=>xpScroll.addEventListener(ev,xTouched,{passive:true}));
 
@@ -1582,7 +1668,7 @@ function enter(){
   startMusic();
   loadEl.classList.add('go');
   setTimeout(()=>{loadEl.style.display='none';},3600);
-  dissolve($('mute'),4800);dissolve($('qrbtn'),4800);
+  dissolve($('mute'),4800);dissolve($('qrbtn'),4800);setTimeout(()=>document.querySelectorAll('.hs').forEach(h=>h.classList.add('in')),9500);
   dissolve($('logo-overlay'),4300);
   dissolve($('coin-labels'),5000);
   pills.forEach((p,i)=>dissolve(p,5600+i*750));      // each button dissolves in as the music builds
