@@ -302,6 +302,15 @@ canvas#bg{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;
   -webkit-mask:url(logo_top.webp) center/100% 100% no-repeat;mask:url(logo_top.webp) center/100% 100% no-repeat}
 .gm2 i{animation:gleamX 3.4s cubic-bezier(.45,.05,.3,1) .6s infinite}
 #logo-sub,.logo-rule{display:none}
+#qrbtn{position:fixed;z-index:62;top:calc(env(safe-area-inset-top,0px) + 14px);right:calc(max(12px,env(safe-area-inset-right,0px)) + 40px);height:30px;padding:0 9px;border-radius:15px;border:1px solid rgba(212,168,48,.35);background:rgba(3,5,8,.6);color:#f0d060;font:600 10px 'Space Grotesk',sans-serif;letter-spacing:.12em;cursor:pointer}
+#qrbtn.in{pointer-events:auto!important}
+#qrbox{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(2,5,8,.86)}
+#qrbox.open{display:flex}
+#qrcard{background:#fff;border-radius:16px;padding:16px;width:min(86vw,340px);text-align:center;font-family:'Space Grotesk',sans-serif;box-shadow:0 0 40px rgba(56,217,128,.35)}
+#qrcard img{width:100%;display:block;border-radius:6px}
+#qrcap{color:#04130c;font-size:12px;font-weight:600;margin:10px 0 8px}
+#qrdl,#qrx{display:inline-block;margin:0 4px;padding:8px 14px;border-radius:18px;border:1px solid #0b7a45;background:#0b7a45;color:#fff;font:600 11px 'Space Grotesk',sans-serif;text-decoration:none;cursor:pointer}
+#qrx{background:#fff;color:#0b7a45}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -323,6 +332,8 @@ canvas#bg{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;
 <div id="coin-labels" class="dis">
   <div class="cl" style="--c:#38d980"><div class="dot"></div><div class="abbr">ACCT</div><div class="full">Africa Carbon Control Token</div></div>
 </div>
+<button id="qrbtn" class="dis" aria-label="Show QR code">QR</button>
+<div id="qrbox"><div id="qrcard"><img src="qr.png" alt="QR code for the MATASON site"><div id="qrcap">Scan to open the MATASON site</div><a id="qrdl" href="qr.png" download="MATASON-QR.png">Download QR</a><button id="qrx">Close</button></div></div>
 <button id="mute" class="dis" aria-label="Toggle music">♪</button>
 <div id="tabs" class="dis"><button class="tab" data-x="0">Overview</button><button class="tab" data-x="1">Credits</button><button class="tab" data-x="2">Birth</button><button class="tab" data-x="3">3 Locks</button><button class="tab" data-x="4">Roles</button></div>
 <div id="xp"><div id="xp-scan"></div><div id="xp-scroll"><div id="xp-body"></div></div><button id="xp-back">&larr; Back to the coin</button></div>
@@ -1506,7 +1517,7 @@ function enter(){
   startMusic();
   loadEl.classList.add('go');
   setTimeout(()=>{loadEl.style.display='none';},3600);
-  dissolve($('mute'),4800);
+  dissolve($('mute'),4800);dissolve($('qrbtn'),4800);
   dissolve($('logo-overlay'),4300);
   dissolve($('coin-labels'),5000);
   pills.forEach((p,i)=>dissolve(p,5600+i*750));      // each button dissolves in as the music builds
@@ -1537,6 +1548,9 @@ document.addEventListener('pointerdown',e=>{
   try{if(navigator.vibrate)navigator.vibrate(8);}catch(_){}
 },true);
 $('mute').addEventListener('click',()=>setMuted(!musicMuted));
+$('qrbtn').addEventListener('click',()=>$('qrbox').classList.add('open'));
+$('qrx').addEventListener('click',()=>$('qrbox').classList.remove('open'));
+$('qrbox').addEventListener('click',e=>{if(e.target.id==='qrbox')$('qrbox').classList.remove('open');});
 pills.forEach((p,i)=>{p.addEventListener('click',()=>{t0=performance.now()-phaseStarts[i]*1000;});});
 
 })();
