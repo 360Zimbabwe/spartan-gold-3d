@@ -1079,7 +1079,7 @@ function animate(ts){
   logoMesh.position.y=5.8+Math.sin(t*0.35)*0.08;
   logoMesh.lookAt(camera.position);
 
-  const asp=innerWidth/innerHeight,minV=Math.min(7.68*asp,7.68),fitS=0.62*artPx()/innerHeight;
+  const asp=innerWidth/innerHeight,minV=Math.min(7.68*asp,7.68),fitS=0.46*artPx()/innerHeight;
   coins.forEach((coin,i)=>{
     const rv=ss(0.3,2.2,et);
     if(selectedCoin===i){
@@ -1159,7 +1159,7 @@ const A2S=(ax,ay)=>[bOX+ax*bS,bOY+ay*bS];
 // art elements that fade up out of the black one after another: [x,y,radius (art px of 1254), start s, duration s]
 const REVEAL=[[420,330,300,0.2,5],[742,432,210,1.2,4.5],[760,620,200,2.2,4.5],[750,215,170,3,4],[470,800,330,3.4,5],[1010,520,200,4.2,4.5],
  [105,640,230,5,4.5],[1160,640,200,5.6,4.5],[870,900,210,6.4,5],[960,760,240,7,5],[640,1030,300,7.6,5],[640,1170,420,8.4,5]];
-const artPx=()=>AS*bS/bDPR, chestPx=()=>(bOY+0.565*AS*bS)/bDPR, chestXPx=()=>(bOX+0.385*AS*bS)/bDPR;
+const artPx=()=>AS*bS/bDPR, chestPx=()=>(bOY+0.575*AS*bS)/bDPR, chestXPx=()=>(bOX+0.345*AS*bS)/bDPR;
 function bgDraw(t){
   if(!artOK||!cx2)return;
   const W=bW,H=bH,g=bx,q=tx,tt=t-1.2;
